@@ -22,10 +22,17 @@ namespace Domain
 
       public void Bet(int chips, int score)
       {
+         if (chips < 0)
+         {
+            throw new ArgumentException("We know.");
+         }
+
          if (Chips < chips)
          {
             throw new ArgumentException("Have you spend all your money already?");
          }
+
+         
 
          Chips -= chips;
          CurrentBet = new Bet(chips, score);
