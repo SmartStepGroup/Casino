@@ -7,6 +7,7 @@ namespace Domain {
         public void BuyChips(int chips) {
             if (chips < 0) {
                 throw new ArgumentException("Are you cheating?");
+
             }
             Chips += chips;
         }
