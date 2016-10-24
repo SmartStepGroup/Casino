@@ -2,11 +2,23 @@
 
 namespace Domain {
     public class RollDiceGame {
-        private readonly Random _dice = new Random();
+        private readonly IDice _dice;
+
+       public RollDiceGame(IDice dice)
+       {
+          if (dice == null)
+          {
+             throw new ArgumentNullException("dice");
+          }
+
+          _dice = dice;
+       }
+
         public Player Player { get; set; }
 
         public void Play() {
-            var winningScore = _dice.Next(1, 7);
+            var winningScore = _dice.Get();
+
             if (Player.CurrentBet.Score == winningScore) {
                 Player.Win(Player.CurrentBet.Chips * 6);
             }
@@ -15,4 +27,19 @@ namespace Domain {
             }
         }
     }
+
+   public interface IDice
+   {
+      int Get();
+   }
+
+   public class Dice: IDice
+   {
+      private readonly Random _dice = new Random();
+
+      public int Get()
+      {
+         return _dice.Next(1, 7);
+      }
+   }
 }
