@@ -13,7 +13,7 @@ namespace Tests
          int chipsCount = (int) ScenarioContext.Current[nameof(chipsCount)];
          var player = (IPlayer) ScenarioContext.Current[nameof(IPlayer)];
 
-         int score = 1;
+         var score = 1;
 
          player.Bet(chipsCount, score);
 
@@ -38,8 +38,8 @@ namespace Tests
       {
          int score = (int) ScenarioContext.Current[nameof(score)];
 
-         RollDiceGame game = new RollDiceGame(new DiceStub(score));
-         game.Player = (IPlayer)ScenarioContext.Current[nameof(IPlayer)];
+         var game = new RollDiceGame(new DiceStub(score));
+         game.Player = (IPlayer) ScenarioContext.Current[nameof(IPlayer)];
 
          game.Play();
       }
@@ -47,11 +47,34 @@ namespace Tests
       [Then(@"Player win in (.*) times more, than previous has")]
       public void ThenPlayerWinInTimesMoreThanPreviousHas(int times)
       {
-         PlayerMock player = (PlayerMock) ScenarioContext.Current[nameof(IPlayer)];
-         int chipsCount = (int)ScenarioContext.Current[nameof(chipsCount)];
+         var player = (PlayerMock) ScenarioContext.Current[nameof(IPlayer)];
+         int chipsCount = (int) ScenarioContext.Current[nameof(chipsCount)];
 
          Assert.IsTrue(player.IsWinCalled);
+         Assert.IsFalse(player.IsLoseCalled);
          Assert.AreEqual(chipsCount*times, player.Chips);
+      }
+
+      [When(@"Dice roll to not same value as Player bet's score")]
+      public void WhenDiceRollToNotSameValueAsPlayerBetSScore()
+      {
+         int score = (int) ScenarioContext.Current[nameof(score)];
+
+         var game = new RollDiceGame(new DiceStub(~score));
+         game.Player = (IPlayer) ScenarioContext.Current[nameof(IPlayer)];
+
+         game.Play();
+      }
+
+      [Then(@"Player lose his bet and all chips")]
+      public void ThenPlayerLoseHisBetAndAllChips()
+      {
+         var player = (PlayerMock) ScenarioContext.Current[nameof(IPlayer)];
+         int chipsCount = (int) ScenarioContext.Current[nameof(chipsCount)];
+
+         Assert.IsFalse(player.IsWinCalled);
+         Assert.IsTrue(player.IsLoseCalled);
+         Assert.AreEqual(0, player.Chips);
       }
    }
 }

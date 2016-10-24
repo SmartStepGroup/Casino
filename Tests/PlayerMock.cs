@@ -2,7 +2,7 @@
 
 namespace Tests
 {
-   public class PlayerMock: IPlayer
+   public class PlayerMock : IPlayer
    {
       private readonly IPlayer _player;
 
@@ -10,6 +10,10 @@ namespace Tests
       {
          _player = player;
       }
+
+      public bool IsLoseCalled { get; set; }
+
+      public bool IsWinCalled { get; set; }
 
       public Bet CurrentBet
       {
@@ -33,6 +37,8 @@ namespace Tests
 
       public void Lose()
       {
+         IsLoseCalled = true;
+
          _player.Lose();
       }
 
@@ -42,8 +48,6 @@ namespace Tests
 
          IsWinCalled = true;
       }
-
-      public bool IsWinCalled { get; set; }
 
       public void Join(RollDiceGame game)
       {
