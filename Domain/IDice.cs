@@ -1,7 +1,7 @@
 ﻿namespace Domain
 {
-    public interface IDice
-    {
-        int Roll();
-    }
+   public interface IDice
+   {
+      int Roll();
+   }
 }

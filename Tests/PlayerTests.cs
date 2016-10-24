@@ -7,101 +7,108 @@ namespace Tests
    [TestFixture]
    public class PlayerTests
    {
-      private static Player CreatePlayerWithOneChip()
+      private Player _player;
+
+      [SetUp]
+      public void Setup()
       {
-         var player = new Player();
+         _player = new Player();
+      }
 
-         player.BuyChips(1);
-
-         return player;
+      [TearDown]
+      public void Teardown()
+      {
+         _player = null;
       }
 
       [Test]
-      public void Bet_PlayerHasOneChipAndCanBetOneChip_BetWithOneChipInCurrentBetPlayerHasZeroChips()
+      public void BetOneChip_PlayerHasOneChip_PlayerHasZeroChips()
       {
-         var player = CreatePlayerWithOneChip();
+         _player.BuyChips(1);
 
-         player.Bet(1, 1);
+         _player.Bet(chips: 1, score: 1);
 
-         Assert.AreEqual(0, player.Chips);
-         Assert.IsNotNull(player.CurrentBet);
-         Assert.AreEqual(1, player.CurrentBet.Chips);
+         Assert.AreEqual(0, _player.Chips);
+      }
+
+      [Test]
+      public void BetOneChip_PlayerHasOneChip_PlayerHasCurrentBetAndCuurentBetHasOneChip()
+      {
+         _player.BuyChips(1);
+
+         _player.Bet(1, 1);
+
+         Assert.IsNotNull(_player.CurrentBet);
+         Assert.AreEqual(1, _player.CurrentBet.Chips);
       }
 
       [Test]
       public void Bet_PlayerHasOneChipAndCannotBetTwoChip_ThrowsArgumentException()
       {
-         var player = CreatePlayerWithOneChip();
+         _player.BuyChips(1);
 
-         Assert.Catch<ArgumentException>(() => player.Bet(2, 1));
+         Assert.Catch<ArgumentException>(() => _player.Bet(2, 1));
       }
 
       [Test]
       public void BuyChip_MinusOneChip_ThrowsArgumentExeption()
       {
-         var player = new Player();
-
-         Assert.Catch<ArgumentException>(() => player.BuyChips(-1));
+         Assert.Catch<ArgumentException>(() => _player.BuyChips(-1));
       }
 
       [Test]
       public void BuyChip_OneChip_PlayerHasOneChip()
       {
-         var player = CreatePlayerWithOneChip();
+         _player.BuyChips(1);
 
-         Assert.AreEqual(1, player.Chips);
+         Assert.AreEqual(1, _player.Chips);
       }
 
       [Test]
       public void BuyChip_ZeroChip_PlayerHasZeroChips()
       {
-         var player = new Player();
+         _player.BuyChips(0);
 
-         player.BuyChips(0);
-
-         Assert.AreEqual(0, player.Chips);
+         Assert.AreEqual(0, _player.Chips);
       }
 
       [Test]
       public void ByDefault_ChipsIsZero()
       {
-         var player = new Player();
-
-         Assert.AreEqual(0, player.Chips);
+         Assert.AreEqual(0, _player.Chips);
       }
 
       [Test]
       public void ByDefault_CurrentBetIsNull()
       {
-         var player = new Player();
-
-         Assert.IsNull(player.CurrentBet);
+         Assert.IsNull(_player.CurrentBet);
       }
 
       [Category("Данный тест является нехорошим.")]
       [Test]
       public void Bet_PlayerHasOneChipAndCannotBetMinusOneChip_ThrowsArgumentExeption()
       {
-         var player = CreatePlayerWithOneChip();
+         _player.BuyChips(1);
 
-         player.Bet(chips: -1, score: 1);
-         Assert.IsNotNull(player.CurrentBet);
-         Assert.AreEqual(-1, player.CurrentBet.Chips);
+         _player.Bet(chips: -1, score: 1);
+
+         Assert.IsNotNull(_player.CurrentBet);
+         Assert.AreEqual(-1, _player.CurrentBet.Chips);
 
          // а мы хотим вот такого ожидаемого поведения.
-         //Assert.Catch<ArgumentException>(() => player.Bet(-1, 1));
+         //Assert.Catch<ArgumentException>(() => _player.Bet(-1, 1));
       }
 
       [Test]
       public void Win_PlayerHasOneChipAndWinTwoChips_PlayerHasTwoChipsAndCurrentBetIsNull()
       {
-         var player = CreatePlayerWithOneChip();
-         player.Bet(chips: 1, score: 1);
+         _player.BuyChips(1);
+         _player.Bet(chips: 1, score: 1);
 
-         player.Win(2);
+         _player.Win(2);
 
-         Assert.AreEqual(2, player.Chips);
-         Assert.IsNull(player.CurrentBet);
+         Assert.AreEqual(2, _player.Chips);
+         Assert.IsNull(_player.CurrentBet);
       }
 
       [Test]

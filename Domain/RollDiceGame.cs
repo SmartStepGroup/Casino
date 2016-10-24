@@ -1,12 +1,20 @@
 ﻿using System;
 
 namespace Domain {
-    public class RollDiceGame {
-        private readonly Random _dice = new Random();
-        public Player Player { get; set; }
+    public class RollDiceGame
+    {
+
+       private readonly IDice _dice;
+
+       public RollDiceGame(IDice dice)
+       {
+          _dice = dice;
+       }
+
+       public IPlayer Player { get; set; }
 
         public void Play() {
-            var winningScore = _dice.Next(1, 7);
+            var winningScore = _dice.Roll();
             if (Player.CurrentBet.Score == winningScore) {
                 Player.Win(Player.CurrentBet.Chips * 6);
             }

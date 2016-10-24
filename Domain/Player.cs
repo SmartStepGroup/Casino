@@ -1,7 +1,8 @@
 ﻿using System;
 
 namespace Domain {
-    public class Player {
+   public class Player : IPlayer
+   {
         public Bet CurrentBet { get; private set; }
 
         public void BuyChips(int chips) {
