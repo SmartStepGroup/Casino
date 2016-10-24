@@ -57,5 +57,7 @@ namespace Tests
 
          Assert.AreEqual(currentBet, _playerWith1Chip.CurrentBet);
       }
+
+
    }
 }
