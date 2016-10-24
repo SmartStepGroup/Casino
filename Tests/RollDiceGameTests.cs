@@ -7,7 +7,6 @@ namespace Tests
    [TestFixture]
    public class RollDiceGameTests
    {
-
       [Test]
       public void WinGame_PlayerBet1Chip_Has6Chips()
       {
@@ -22,7 +21,7 @@ namespace Tests
          game.Play();
 
          Assert.AreEqual(betChip*6, player.Chips);
-         Assert.IsNotNull(player.CurrentBet);
+         Assert.IsNull(player.CurrentBet);
       }
 
       [Test]
@@ -39,7 +38,7 @@ namespace Tests
          game.Play();
 
          Assert.AreEqual(0, player.Chips);
-         Assert.IsNotNull(player.CurrentBet);
+         Assert.IsNull(player.CurrentBet);
       }
 
       
