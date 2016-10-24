@@ -43,8 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Test1.cs" />
+    <Compile Include="PlayerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RollDiceGameTest.cs" />
+    <Compile Include="StubDice.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
