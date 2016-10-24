@@ -11,7 +11,7 @@ namespace Tests
         {
             var player = new Player();
             player.BuyChips(1);
-            Assert.True(true);
+            Assert.True(true);  
         }
     }
 }
