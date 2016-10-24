@@ -63,7 +63,7 @@ namespace Tests
          Assert.AreNotEqual(null, player.CurrentBet);
        }
 
-      [Test]
+       [Test]
        public void Bet1Chip_PlayerHas1Chips_PlayerHasNoChips()
        {
          var player = new Player();
@@ -72,6 +72,27 @@ namespace Tests
          player.Bet(1, 3);
          
          Assert.AreEqual(0, player.Chips);
+       }
+
+       [Test]
+       public void Bet1Chip_PlayerHasNoChips_ArgumentException()
+       {
+         var player = new Player();
+
+         Assert.Catch<ArgumentException>(() => player.Bet(1, 3));
+         Assert.AreEqual(null, player.CurrentBet);
+       }
+
+       [Test]
+       public void Bet1Chip_PlayerHasNoChipsButHasBet_PlayerNotLostCurrentBet()
+       {
+         var player = new Player();
+         player.BuyChips(1);
+         player.Bet(1, 1);
+         var currentBet = player.CurrentBet;
+
+         Assert.Catch<ArgumentException>(() => player.Bet(1, 3));
+         Assert.AreEqual(currentBet, player.CurrentBet);
        }
    }
 }
