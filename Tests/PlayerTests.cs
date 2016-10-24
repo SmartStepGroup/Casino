@@ -82,7 +82,7 @@ namespace Tests
       public void Bet_PlayerHasOneChipAndCannotBetMinusOneChip_ThrowsArgumentExeption()
       {
          var player = CreatePlayerWithOneChip();
-
+         
          Assert.Catch<ArgumentException>(() => player.Bet(-1, 1));
       }
 
