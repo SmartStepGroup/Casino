@@ -27,6 +27,7 @@ namespace Tests
 
             game.Play();
 
+
             Assert.AreEqual(6*10, player.Chips);
         }
     }
