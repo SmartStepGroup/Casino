@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DiceStub.cs" />
+    <Compile Include="DSLGameTests.cs" />
     <Compile Include="PlayerTests.cs" />
     <Compile Include="PlayerWith1ChipTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
