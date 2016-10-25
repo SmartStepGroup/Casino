@@ -16,7 +16,7 @@ namespace Domain
          _dice = dice;
       }
 
-      public Player Player { get; set; }
+      public IPlayer Player { get; set; }
 
       public void Play()
       {
