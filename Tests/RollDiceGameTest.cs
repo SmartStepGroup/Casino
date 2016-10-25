@@ -16,8 +16,6 @@ namespace Tests
       
       private const int DEFAULT_BET_CHIPS_VALUE = 1;
 
-      private const int WIN_COEF = 6;
-
       private RollDiceGame _rollDiceGame;
 
       private Player _player;
@@ -53,7 +51,7 @@ namespace Tests
 
          _rollDiceGame.Play();
 
-         Assert.AreEqual(DEFAULT_BET_CHIPS_VALUE * WIN_COEF, _player.Chips);
+         Assert.AreEqual(DEFAULT_BET_CHIPS_VALUE * 6, _player.Chips);
       }
 
       [Test]
