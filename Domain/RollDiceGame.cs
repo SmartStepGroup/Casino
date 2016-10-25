@@ -2,7 +2,7 @@
 
 namespace Domain
 {
-   public class RollDiceGame
+   public class RollDiceGame : IRollDiceGame
    {
       private readonly IDice _dice;
 

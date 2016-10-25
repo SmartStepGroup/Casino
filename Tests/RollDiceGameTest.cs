@@ -1,6 +1,8 @@
-﻿using Domain;
+﻿using System.Runtime.InteropServices;
+using Domain;
 using Moq;
 using NUnit.Framework;
+using Tests.DSL;
 
 namespace Tests
 {
@@ -14,10 +16,6 @@ namespace Tests
       private const int DEFAULT_LOSE_BET_SCORE = 2;
 
       private RollDiceGame _rollDiceGame;
-
-      private Player _player;
-
-      private StubDice _stubDice;
 
       private Mock<IDice> _diceStub;
 
@@ -38,11 +36,12 @@ namespace Tests
       [Test]
       public void Play_PlayerDefaultWinBet_UseDice()
       {
-         configurePlayerAndDice(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>());
+         var game = Create.Game().WithWinScore();
+         var player = Create.Player().BuyChips().JoinGame(game).MakeBet();
 
-         _rollDiceGame.Play();
+         game.Play();
 
-         _diceStub.Verify(s => s.Roll(), Times.Once);
+         game.CheckIfUsedDiceOnce();
       }
 
       [Test]
@@ -54,43 +53,34 @@ namespace Tests
       [TestCase(1000)]
       public void Play_PlayerWinBet_PlayerWinSixSelfBet(int playerBetChips)
       {
-         configurePlayerAndDice(playerChips: It.IsAny<int>(), playerBetChips: playerBetChips, playerBetScore: It.IsAny<int>(), diceWinScore:It.IsAny<int>());
+         var game = Create.Game().WithWinScore(DEFAULT_WIN_BET_SCORE);
+         var player = Create.Player().BuyChips().JoinGame(game).MakeBet(playerBetChips, DEFAULT_WIN_BET_SCORE);
 
-         _rollDiceGame.Play();
+         game.Play();
 
-         _playerStub.Verify(_ => _.Win(playerBetChips * 6));
+         player.CheckIsWin(playerBetChips * 6);
       }
 
       [Test]
-      public void Play_PlayerDefaultWinBet_PlayerChipsIsWinedChipsValue()
+      public void Play_PlayerInGemeWithWinScore_PlayerWins()
       {
-         configurePlayerAndDice(playerChips: It.IsAny<int>(), playerBetChips: It.IsAny<int>(), playerBetScore: DEFAULT_WIN_BET_SCORE, diceWinScore: DEFAULT_WIN_BET_SCORE);
+         var game = Create.Game().WithWinScore(DEFAULT_WIN_BET_SCORE);
+         var player = Create.Player().BuyChips().JoinGame(game).MakeBet(DEFAULT_WIN_BET_SCORE);
 
-         _rollDiceGame.Play();
+         game.Play();
 
-         _playerStub.Verify(s => s.Win(It.IsAny<int>()), Times.Once);
+         player.CheckIsWin();
       }
 
       [Test]
-      public void Play_PlayerDefaultLoseBet_PlayerLostChips()
+      public void Play_PlayerInGemeWithWrongScore_LoseGame()
       {
-         configurePlayerAndDice(playerChips: It.IsAny<int>(), playerBetChips: It.IsAny<int>(), playerBetScore: DEFAULT_LOSE_BET_SCORE, diceWinScore: DEFAULT_WIN_BET_SCORE);
-         
-         _rollDiceGame.Play();
-         
-         _playerStub.Verify(_ => _.Lose(), Times.Once);
-      }
+         var game = Create.Game().WithWinScore(DEFAULT_WIN_BET_SCORE);
+         var player = Create.Player().BuyChips().JoinGame(game).MakeBet(DEFAULT_LOSE_BET_SCORE);
 
-      
+         game.Play();
 
-      private void configurePlayerAndDice(int playerChips, int playerBetChips, int playerBetScore, int diceWinScore)
-      {
-         _playerStub.Reset();
-         _playerStub.SetupGet(_ => _.Chips).Returns(playerChips);
-         _playerStub.SetupGet(_ => _.CurrentBet).Returns(new Bet(playerBetChips, playerBetScore));
-
-         _diceStub.Reset();
-         _diceStub.Setup(_ => _.Roll()).Returns(diceWinScore);
+         player.CheckIsLost();
       }
    }
 }
