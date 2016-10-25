@@ -97,7 +97,7 @@ namespace Tests
 
          // а мы хотим вот такого ожидаемого поведения.
          //Assert.Catch<ArgumentException>(() => _player.Bet(-1, 1));
-      }
+      } 
 
       [Test]
       public void Win_PlayerHasOneChipAndWinTwoChips_PlayerHasTwoChipsAndCurrentBetIsNull()
