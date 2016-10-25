@@ -127,23 +127,4 @@ namespace Tests
             Assert.IsNull(game.Player);
         }
     }
-
-    [TestFixture]
-    public class RollDiceGameTest
-    {
-
-        [Test]
-        public void Run()
-        {
-            var _rollDiceGame = new RollDiceGame();
-            _rollDiceGame.Player = new Player();
-            _rollDiceGame.Player.BuyChips(1);
-            _rollDiceGame.Player.Bet(1,2);
-
-            _rollDiceGame.Play();
-
-            Assert.AreEqual(0, _rollDiceGame.Player.Chips);
-        }
-    }
-
 }

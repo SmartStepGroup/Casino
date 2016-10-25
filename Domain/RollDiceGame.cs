@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Domain {
     public class RollDiceGame {
-        private readonly Random _dice = new Random();
+        
         public Player Player { get; set; }
 
-        public void Play() {
-            var winningScore = _dice.Next(1, 7);
+        public void Play(IDice dice) {
+            var winningScore = dice.Roll();
             if (Player.CurrentBet.Score == winningScore) {
                 Player.Win(Player.CurrentBet.Chips * 6);
             }
@@ -14,5 +15,10 @@ namespace Domain {
                 Player.Lose();
             }
         }
+    }
+
+    public interface IDice
+    {
+       int Roll();
     }
 }
