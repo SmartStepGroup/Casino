@@ -1,5 +1,4 @@
-﻿using System;
-using Domain;
+﻿using Domain;
 using Moq;
 using NUnit.Framework;
 
@@ -8,39 +7,74 @@ namespace Tests
     [TestFixture]
     public class RollDiceGameTest
     {
-        private RollDiceGame _rollDiceGame;
-        private const int _minChips = 1;
-
-        [SetUp]
-        public void CreateGameWith1Player_MinChips()
-        {
-            _rollDiceGame = new RollDiceGame {Player = new Player()};
-            _rollDiceGame.Player.BuyChips(_minChips);
-        }
-
         [Test]
         public void Play_Has1ChipAndBetForLuckyScrore_Win()
         {
-            _rollDiceGame.Player.Bet(chips: 1, score: 6);
+            var player = CreatePlayer.BuyChips(1).BetChips(1).ForScore(6);
+            CreateGame.Join(player).WaitWinResult(6).CheckResult();
+            
+            Assert.AreEqual(1*6, player.Chips);
+        }
+    }
 
-            var dice = new Mock<IDice>();
-            dice.Setup(_ => _.Roll()).Returns(6);
-            _rollDiceGame.Play(dice.Object);
+    public static class CreateGame
+    {
+        static readonly RollDiceGame _game;
+        static Mock<IDice> _dice;
 
-            const int winFactor = 6;
-            Assert.AreEqual(_minChips * winFactor, _rollDiceGame.Player.Chips);
+        static CreateGame()
+        {
+            _game = new RollDiceGame();
         }
 
-        [Test]
-        public void Play_Has1ChipAndBetForUnluckyScrore_Lose()
+        public static RollDiceGame Join(Player player)
         {
-            _rollDiceGame.Player.Bet(chips: 1, score: 5);
+            _game.Player = player;
+            return _game;
+        }
 
-            var dice = new Mock<IDice>();
-            dice.Setup(_ => _.Roll()).Returns(6);
-            _rollDiceGame.Play(dice.Object);
+        public static RollDiceGame WaitWinResult(this RollDiceGame game, int v)
+        {
+            _dice = new Mock<IDice>();
+            _dice.Setup(_ => _.Roll()).Returns(v);
+            
+            return _game;
+        }
 
-            Assert.AreEqual(0, _rollDiceGame.Player.Chips);
+        public static void CheckResult(this RollDiceGame game)
+        {
+            _game.Play(_dice.Object);
+        }
+    }
+
+    public static class CreatePlayer
+    {
+        static readonly Player _player;
+        static int _chips;
+        static int _score;
+
+        static CreatePlayer()
+        {
+            _player = new Player();
+        }
+
+        public static Player BuyChips(int v)
+        {
+            _player.BuyChips(1);
+            return _player;
+        }
+
+        public static Player BetChips(this Player player, int v)
+        {
+            _chips = v;
+            return _player;
+        }
+
+        public static Player ForScore(this Player player, int v)
+        {
+            _score = v;
+            _player.Bet(_chips, _score);
+            return _player;
         }
     }
 }
