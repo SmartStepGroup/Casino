@@ -11,24 +11,27 @@ namespace Tests
         [TestMethod]
         public void GamePlay_PlayerWithLuckyBet10_Win60Chips()
         {
+            const int chips = 10;
+            const int luckyScore = 2;
+
             RollDiceGame game =
                 Create
                     .Game()
-                    .WithDiceThatAlwaysRolls(2);
+                    .WithDiceThatAlwaysRolls(luckyScore);
 
             Player player =
                 Create
                     .Player()
-                    .WithChips(10)
+                    .WithChips(chips)
                     .In(game);
 
-            player.Bet(chips: 10, score: 2);
+            player.Bet(chips, luckyScore);
 
 
             game.Play();
 
 
-            Assert.AreEqual(6*10, player.Chips);
+            Assert.AreEqual(6*chips, player.Chips);
         }
     }
 }
