@@ -38,7 +38,7 @@ namespace Tests
         }
 
         [Test]
-        public void BuyChips_minus1_ExceptionArgument()
+        public void BuyChips_Minus1_ExceptionArgument()
         {
             var exception = Assert.Catch<ArgumentException>(() => { _player.BuyChips(-1); });
             Assert.AreEqual("Are you cheating?", exception.Message);
