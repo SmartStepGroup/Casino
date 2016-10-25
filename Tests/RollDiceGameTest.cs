@@ -15,6 +15,15 @@ namespace Tests
             
             Assert.AreEqual(1*6, player.Chips);
         }
+
+        [Test]
+        public void Play_Has1ChipAndBetForLuckyScrore_Lose()
+        {
+            var player = CreatePlayer.BuyChips(1).BetChips(1).ForScore(6);
+            CreateGame.Join(player).WaitWinResult(1).CheckResult();
+
+            Assert.AreEqual(0, player.Chips);
+        }
     }
 
     public static class CreateGame
