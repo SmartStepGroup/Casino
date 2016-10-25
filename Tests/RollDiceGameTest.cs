@@ -9,13 +9,9 @@ namespace Tests
    {
       private const int DEFAULT_DICE_RESULT = 1;
 
-      private const int DEFAULT_BUY_CHIPS_VALUE = 1;
-
       private const int DEFAULT_WIN_BET_SCORE = DEFAULT_DICE_RESULT;
 
       private const int DEFAULT_LOSE_BET_SCORE = 2;
-
-      private const int DEFAULT_BET_CHIPS_VALUE = 1;
 
       private RollDiceGame _rollDiceGame;
 
@@ -26,11 +22,23 @@ namespace Tests
       private Mock<IDice> _diceStub;
 
       private Mock<IPlayer> _playerStub;
-      
+
+      [SetUp]
+      public void Setup()
+      {
+         _diceStub = new Mock<IDice>();
+         _playerStub = new Mock<IPlayer>();
+
+         _rollDiceGame = new RollDiceGame(_diceStub.Object)
+         {
+            Player = _playerStub.Object
+         };
+      }
+
       [Test]
       public void Play_PlayerDefaultWinBet_UseDice()
       {
-         configurePlayerAndDice(DEFAULT_BET_CHIPS_VALUE, DEFAULT_WIN_BET_SCORE, It.IsAny<int>(), DEFAULT_WIN_BET_SCORE);
+         configurePlayerAndDice(It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<int>());
 
          _rollDiceGame.Play();
 
@@ -38,50 +46,51 @@ namespace Tests
       }
 
       [Test]
-      [TestCase(1, 1, 1, 1 * 6)]
-      [TestCase(2, 1, 1, 2 * 6)]
-      [TestCase(0, 1, 1, 0 * 6)]
-      [TestCase(4, 5, 5, 4 * 6)]
-      [TestCase(3, 4, 4, 3 * 6)]
-      public void Play_PlayerDefaultWinBet_PlayerChipsIsWinedChipsValue(int playerBetCHips, int playerBetScore, int diceWeinScore, int playerWinChips)
+      [TestCase(1)]
+      [TestCase(2)]
+      [TestCase(5)]
+      [TestCase(10)]
+      [TestCase(100)]
+      [TestCase(1000)]
+      public void Play_PlayerWinBet_PlayerWinSixSelfBet(int playerBetChips)
       {
-         configurePlayerAndDice(playerBetCHips, playerBetScore, playerWinChips, diceWeinScore);
+         configurePlayerAndDice(playerChips: It.IsAny<int>(), playerBetChips: playerBetChips, playerBetScore: It.IsAny<int>(), diceWinScore:It.IsAny<int>());
 
          _rollDiceGame.Play();
 
-         _playerStub.Verify(s => s.Win(playerWinChips), Times.Once);
+         _playerStub.Verify(_ => _.Win(playerBetChips * 6));
+      }
+
+      [Test]
+      public void Play_PlayerDefaultWinBet_PlayerChipsIsWinedChipsValue()
+      {
+         configurePlayerAndDice(playerChips: It.IsAny<int>(), playerBetChips: It.IsAny<int>(), playerBetScore: DEFAULT_WIN_BET_SCORE, diceWinScore: DEFAULT_WIN_BET_SCORE);
+
+         _rollDiceGame.Play();
+
+         _playerStub.Verify(s => s.Win(It.IsAny<int>()), Times.Once);
       }
 
       [Test]
       public void Play_PlayerDefaultLoseBet_PlayerLostChips()
       {
-         _player = new Player();
-         _player.BuyChips(DEFAULT_BUY_CHIPS_VALUE);
-         _player.Bet(DEFAULT_BET_CHIPS_VALUE, DEFAULT_LOSE_BET_SCORE);
-         _rollDiceGame = new RollDiceGame(new StubDice(DEFAULT_WIN_BET_SCORE));
-         _player.Join(_rollDiceGame);
-
+         configurePlayerAndDice(playerChips: It.IsAny<int>(), playerBetChips: It.IsAny<int>(), playerBetScore: DEFAULT_LOSE_BET_SCORE, diceWinScore: DEFAULT_WIN_BET_SCORE);
+         
          _rollDiceGame.Play();
-
-         Assert.AreEqual(DEFAULT_BUY_CHIPS_VALUE - DEFAULT_BET_CHIPS_VALUE, _player.Chips);
+         
+         _playerStub.Verify(_ => _.Lose(), Times.Once);
       }
 
-      private void configurePlayerAndDice(int betChips, int betScore, int playerWinChips, int diceWinScore)
+      
+
+      private void configurePlayerAndDice(int playerChips, int playerBetChips, int playerBetScore, int diceWinScore)
       {
-         _diceStub = new Mock<IDice>();
-         _playerStub = new Mock<IPlayer>();
-         _stubDice = new StubDice(DEFAULT_DICE_RESULT);
+         _playerStub.Reset();
+         _playerStub.SetupGet(_ => _.Chips).Returns(playerChips);
+         _playerStub.SetupGet(_ => _.CurrentBet).Returns(new Bet(playerBetChips, playerBetScore));
 
-         _rollDiceGame = new RollDiceGame(_diceStub.Object);
-         _player = new Player();
-         _player.BuyChips(DEFAULT_BUY_CHIPS_VALUE);
-
-         _rollDiceGame.Player = _playerStub.Object;
-
-         _playerStub.SetupGet(s => s.CurrentBet).Returns(new Bet(betChips, betScore));
-         _playerStub.Setup(s => s.Win(playerWinChips));
-
-         _diceStub.Setup(s => s.Roll()).Returns(diceWinScore);
+         _diceStub.Reset();
+         _diceStub.Setup(_ => _.Roll()).Returns(diceWinScore);
       }
    }
 }
