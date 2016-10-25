@@ -82,5 +82,16 @@ namespace Tests
 
          player.CheckIsLost();
       }
+
+      [Test]
+      public void Leave_PlayerInGame_LeavesGame()
+      {
+         var game = Create.Game();
+         var player = Create.Player().JoinGame(game);
+
+         player.LeftGame(game);
+
+         player.CheckIsNotInGame(game);
+      }
    }
 }

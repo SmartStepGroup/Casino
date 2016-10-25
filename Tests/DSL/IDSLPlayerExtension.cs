@@ -1,5 +1,6 @@
 ﻿using Domain;
 using Moq;
+using NUnit.Framework;
 
 namespace Tests.DSL
 {
@@ -20,6 +21,13 @@ namespace Tests.DSL
       public static IDSLPlayer JoinGame(this IDSLPlayer player, IRollDiceGame game)
       {
          game.Player = player.PlayerStub.Object;
+
+         return player;
+      }
+
+      public static IDSLPlayer LeftGame(this IDSLPlayer player, IRollDiceGame game)
+      {
+         game.Player = null;
 
          return player;
       }
@@ -54,6 +62,11 @@ namespace Tests.DSL
       public static void CheckIsWin(this IDSLPlayer player)
       {
          player.CheckIsWin(It.IsAny<int>());
+      }
+
+      public static void CheckIsNotInGame(this IDSLPlayer player, IRollDiceGame game)
+      {
+         Assert.IsNull(game.Player);
       }
    }
 }
