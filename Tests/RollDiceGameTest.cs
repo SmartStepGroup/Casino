@@ -37,7 +37,7 @@ namespace Tests
       public void Play_PlayerDefaultWinBet_UseDice()
       {
          var game = Create.Game().WithWinScore();
-         var player = Create.Player().BuyChips().JoinGame(game).MakeBet();
+         Create.Player().BuyChips().JoinGame(game).MakeBet();
 
          game.Play();
 
@@ -53,8 +53,11 @@ namespace Tests
       [TestCase(1000)]
       public void Play_PlayerWinBet_PlayerWinSixSelfBet(int playerBetChips)
       {
-         var game = Create.Game().WithWinScore(DEFAULT_WIN_BET_SCORE);
-         var player = Create.Player().BuyChips().JoinGame(game).MakeBet(playerBetChips, DEFAULT_WIN_BET_SCORE);
+         var game = Create.Game()
+            .WithWinScore(DEFAULT_WIN_BET_SCORE);
+         var player = Create.Player()
+            .JoinGame(game)
+            .MakeBet(playerBetChips, DEFAULT_WIN_BET_SCORE);
 
          game.Play();
 
@@ -64,8 +67,11 @@ namespace Tests
       [Test]
       public void Play_PlayerInGemeWithWinScore_PlayerWins()
       {
-         var game = Create.Game().WithWinScore(DEFAULT_WIN_BET_SCORE);
-         var player = Create.Player().BuyChips().JoinGame(game).MakeBet(DEFAULT_WIN_BET_SCORE);
+         var game = Create.Game()
+            .WithWinScore(DEFAULT_WIN_BET_SCORE);
+         var player = Create.Player()
+            .JoinGame(game)
+            .MakeBet(DEFAULT_WIN_BET_SCORE);
 
          game.Play();
 
@@ -75,8 +81,11 @@ namespace Tests
       [Test]
       public void Play_PlayerInGemeWithWrongScore_LoseGame()
       {
-         var game = Create.Game().WithWinScore(DEFAULT_WIN_BET_SCORE);
-         var player = Create.Player().BuyChips().JoinGame(game).MakeBet(DEFAULT_LOSE_BET_SCORE);
+         var game = Create.Game()
+            .WithWinScore(DEFAULT_WIN_BET_SCORE);
+         var player = Create.Player()
+            .JoinGame(game)
+            .MakeBet(DEFAULT_LOSE_BET_SCORE);
 
          game.Play();
 
