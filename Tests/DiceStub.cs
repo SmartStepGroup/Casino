@@ -1,4 +1,6 @@
-﻿namespace Domain
+﻿using Domain;
+
+namespace Tests
 {
    internal class DiceStub : IDice
    {
