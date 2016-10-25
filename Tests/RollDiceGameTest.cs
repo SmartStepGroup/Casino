@@ -1,6 +1,7 @@
 ﻿// (c) Vladimir Krivopalov & Alexander Ivanov
 
 using Domain;
+using Moq;
 using NUnit.Framework;
 
 namespace Tests
@@ -25,12 +26,14 @@ namespace Tests
 		[Test]
 		public void Play_BetOnXDiceRollX_WinsSixTimesBet([Range(1, 6, 1)] int x)
 		{
-			_player.Bet(1, x);
-			var dice = new StubDice(x);
+			var mockPlayer = new Mock<Player>();
+			mockPlayer.SetupGet(_ => _.CurrentBet).Returns(new Bet(1,x));
+			_game.Player = mockPlayer.Object;
+			var stubDice = Mock.Of<IDice>(_ =>  _.Roll() == x);
 
-			_game.Play(dice);
+			_game.Play(stubDice);
 
-			Assert.AreEqual(_player.Chips, 6);
+			mockPlayer.Verify(_ => _.Win(6), Times.Once);
 		}
 
 		[Test]

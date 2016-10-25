@@ -2,7 +2,7 @@
 
 namespace Domain {
     public class Player {
-        public Bet CurrentBet { get; private set; }
+        public virtual Bet CurrentBet { get; private set; }
 
         public void BuyChips(int chips) {
             if (chips < 0) {
@@ -27,7 +27,7 @@ namespace Domain {
             CurrentBet = null;
         }
 
-        public void Win(int chips) {
+        public virtual void Win(int chips) {
             Chips += chips;
             CurrentBet = null;
         }
