@@ -42,7 +42,7 @@ namespace Tests
       private static RollDiceGame CreateGame(int gameScore)
       {
          var diceMock = new Mock<IDice>();
-         diceMock.Setup((m) => m.Get()).Returns(gameScore);
+         diceMock.Setup(m => m.Get()).Returns(gameScore);
 
          var game = new RollDiceGame(diceMock.Object);
 
