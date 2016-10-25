@@ -17,6 +17,9 @@ namespace Domain {
             if (Chips < chips) {
                 throw new ArgumentException("Have you spend all your money already?");
             }
+            if (chips < 0) {
+                throw new ArgumentException("You are cheating!");
+            }
 
             Chips -= chips;
             CurrentBet = new Bet(chips, score);
