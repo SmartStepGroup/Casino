@@ -18,8 +18,8 @@ namespace Tests
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.1.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Roll dice")]
-    public partial class RollDiceFeature
+    [NUnit.Framework.DescriptionAttribute("Игра в кубик")]
+    public partial class ИграВКубикFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
@@ -31,7 +31,8 @@ namespace Tests
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Roll dice", "\tAs a man who needed more money\r\n\tI want to play in casino\r\n   And rool dice", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("ru-RU"), "Игра в кубик", "   Как человек, который нуждается в денежных средствах\r\n   Я хочу играть в казино" +
+                    "\r\n   И кидать кубик", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -64,41 +65,39 @@ namespace Tests
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Player win game")]
-        [NUnit.Framework.CategoryAttribute("mytag")]
-        public virtual void PlayerWinGame()
+        [NUnit.Framework.DescriptionAttribute("Игрок выигрывает")]
+        public virtual void ИгрокВыигрывает()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player win game", new string[] {
-                        "mytag"});
-#line 7
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Игрок выигрывает", ((string[])(null)));
+#line 6
 this.ScenarioSetup(scenarioInfo);
+#line 7
+ testRunner.Given("у Игрока есть некоторое количество фишек", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Допустим ");
 #line 8
- testRunner.Given("Player has some amount of chips", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.And("Игрок имеет ставку в размере всех его фишек", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "И ");
 #line 9
- testRunner.And("has bet with all of his chip and some score", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("на Кубике выпадет тоже число, что и у Игрока в ставке", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Если ");
 #line 10
- testRunner.When("Dice roll to same value as Player bet\'s score", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 11
- testRunner.Then("Player win in 6 times more, than previous has", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("Игрок выиграет в 6 раз больше, чем было у него в ставке", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "То ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Player lose game")]
-        public virtual void PlayerLoseGame()
+        [NUnit.Framework.DescriptionAttribute("Игрок проигрывает")]
+        public virtual void ИгрокПроигрывает()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Player lose game", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Игрок проигрывает", ((string[])(null)));
 #line 13
 this.ScenarioSetup(scenarioInfo);
 #line 14
- testRunner.Given("Player has some amount of chips", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("у Игрока есть некоторое количество фишек", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Допустим ");
 #line 15
- testRunner.And("has bet with all of his chip and some score", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Игрок имеет ставку в размере всех его фишек", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "И ");
 #line 16
- testRunner.When("Dice roll to not same value as Player bet\'s score", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("на Кубике выпадет другое число, отличное от числа в ставке Игрока", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Если ");
 #line 17
- testRunner.Then("Player lose his bet and all chips", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("Игрок потеряет ставку и все свои фишки", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "То ");
 #line hidden
             this.ScenarioCleanup();
         }

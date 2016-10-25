@@ -1,17 +1,28 @@
-﻿Feature: Roll dice
-	As a man who needed more money
-	I want to play in casino
-   And rool dice
+﻿Функция: Игра в кубик
+   Как человек, который нуждается в денежных средствах
+   Я хочу играть в казино
+   И кидать кубик
 
-@mytag
-Scenario: Player win game
-	Given Player has some amount of chips
-	And has bet with all of his chip and some score
-	When Dice roll to same value as Player bet's score
-	Then Player win in 6 times more, than previous has
+Сценарий: Игрок выигрывает
+	Допустим у Игрока есть некоторое количество фишек
+	И Игрок имеет ставку в размере всех его фишек
+	Если на Кубике выпадет тоже число, что и у Игрока в ставке
+	То Игрок выиграет в 6 раз больше, чем было у него в ставке
 
-Scenario: Player lose game
-	Given Player has some amount of chips
-	And has bet with all of his chip and some score
-	When Dice roll to not same value as Player bet's score
-	Then Player lose his bet and all chips
+
+Сценарий: Игрок проигрывает
+	Допустим у Игрока есть некоторое количество фишек
+	И Игрок имеет ставку в размере всех его фишек
+	Если на Кубике выпадет другое число, отличное от числа в ставке Игрока
+	То Игрок потеряет ставку и все свои фишки
+
+
+
+#Структура сценария: Player win game
+#   Пусть Player has some amount of chips
+#   И has bet with all of his chip and some score
+#   Если Dice roll to same value as Player bet's score
+#   То Player win in Параметр times more, than previous has
+#| Параметр |
+#| 6        |
+#| 7        |

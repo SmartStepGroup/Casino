@@ -56,11 +56,6 @@
       <DependentUpon>Dice.feature</DependentUpon>
     </Compile>
     <Compile Include="DiceSteps.cs" />
-    <Compile Include="Player.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Player.feature</DependentUpon>
-    </Compile>
     <Compile Include="PlayerMock.cs" />
     <Compile Include="PlayerSteps.cs" />
     <Compile Include="PlayerTests.cs" />
@@ -85,10 +80,6 @@
     <None Include="Dice.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Dice.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Player.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Player.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

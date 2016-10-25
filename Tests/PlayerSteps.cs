@@ -14,13 +14,13 @@ namespace Tests
          Player player = new Player();
          player.BuyChips(chipCount);
 
-         ScenarioContext.Current[nameof(Player)] = player;
+         ScenarioContext.Current["player"] = player;
       }
 
       [When(@"Make bet with (.*) chip")]
       public void WhenMakeBetWithChip(int chipCount)
       {
-         Player player = (Player) ScenarioContext.Current[nameof(Player)];
+         Player player = (Player) ScenarioContext.Current["player"];
 
          player.Bet(chips: chipCount, score: default(int));
       }
@@ -28,7 +28,7 @@ namespace Tests
       [Then(@"Player's current bet has (.*) chip")]
       public void ThenPlayerSCurrentBetHasChip(int chipCount)
       {
-         Player player = (Player)ScenarioContext.Current[nameof(Player)];
+         Player player = (Player)ScenarioContext.Current["player"];
 
          Assert.IsNotNull(player.CurrentBet);
          Assert.AreEqual(chipCount, player.CurrentBet.Chips);
