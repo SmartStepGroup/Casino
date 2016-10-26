@@ -51,5 +51,17 @@ namespace Tests
             Assert.IsFalse(player.InGame);
         }
 
+        [Test]
+        public void JoinGame2_AlreadyJoinedGame1_ThrowsInvalidOperationException()
+        {
+            var player = new Player();
+            var game1 = new Game();
+            var game2 = new Game();
+            player.Join(game1);
+            
+            Assert.Catch<InvalidOperationException>(()=>player.Join(game2));
+        }
     }
 }
+//* Я, как игрок, могу играть только в одну игру одновременно
+//* Я, как игра, не позволяю войти более чем 6 игрокам

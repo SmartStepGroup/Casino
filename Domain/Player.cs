@@ -11,6 +11,10 @@ namespace Domain
     {
         public void Join(Game game)
         {
+            if (InGame)
+            {
+                throw new InvalidOperationException();
+            }
             InGame = true;
 
         }
