@@ -5,7 +5,8 @@ namespace Domain
     public class Player
     {
         public bool IsInGame { get; set; }
-        public int Chips => 1;
+        public int Chips { get; set; }
+        public Bet CurrentBet { get; set; }
 
         public void Join(RollDiceGame game)
         {
@@ -26,8 +27,19 @@ namespace Domain
             IsInGame = false;
         }
 
-        public void BuyChips(int i)
+        public void BuyChips(int chips)
         {
+            Chips += chips;
         }
+
+        public void Bet(int chips, int score)
+        {
+            CurrentBet = new Bet();
+        }
+    }
+
+    public class Bet
+    {
+        public int Chips => 1;
     }
 }
