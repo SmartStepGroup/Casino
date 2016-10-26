@@ -1,5 +1,6 @@
 ﻿using System.Security.Permissions;
 using System.Security.Policy;
+using Domain;
 using NUnit.Framework;
 
 namespace Tests
@@ -19,17 +20,4 @@ namespace Tests
         }
     }
 
-    public class Game
-    {
-    }
-
-    public class Player
-    {
-        public void Join(Game game)
-        {
-           
-        }
-
-        public bool InGame = true;
-    }
 }
