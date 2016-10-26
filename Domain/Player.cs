@@ -21,7 +21,7 @@ namespace Domain
         }
 
         public bool InGame { get; set; }
-
+        public uint Chips { get; private set; }
         public void GoOutFromGame()
         {
             if (!InGame)
@@ -29,6 +29,11 @@ namespace Domain
                 throw new InvalidOperationException();
             }
             InGame = false;
+        }
+
+        public void BuyChips(uint chips)
+        {
+            Chips += chips;
         }
     }
 }
