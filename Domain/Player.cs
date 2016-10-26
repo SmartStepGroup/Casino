@@ -6,13 +6,13 @@ namespace Domain
    {
       public bool IsInGame { get; private set; }
 
-      public int CountChips { get; private set; }
+      public Chip Chips { get; private set; }
 
       public Bet Bet { get; set; }
 
-      public void BuyChips(int chipsNumber)
+      public void BuyChips(Chip chipsNumber)
       {
-         CountChips += chipsNumber;
+         Chips = chipsNumber;
       }
 
       public void Join(Game game)
@@ -41,14 +41,14 @@ namespace Domain
          IsInGame = false;
       }
 
-      public void MakeBet(int chips)
+      public void MakeBet(Chip chips, Score score)
       {
-         if (this.CountChips < chips)
+         if (this.Chips.Count < chips.Count)
          {
             throw new InvalidOperationException();
          }
 
-         Bet = new Bet(chips);
+         Bet = new Bet(chips, score);
       }
    }
 }

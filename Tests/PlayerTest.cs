@@ -60,9 +60,9 @@ namespace Tests
       {
          var player = new Player();
 
-         player.BuyChips(chipsNumber);
+         player.BuyChips(chipsNumber.Chips());
 
-         Assert.AreEqual(chipsNumber, player.CountChips);
+         Assert.AreEqual(chipsNumber, player.Chips.Count);
       }
 
       [Test]
@@ -71,9 +71,9 @@ namespace Tests
          var player = new Player();
          player.Join(new Game());
 
-         player.MakeBet(It.IsAny<int>());
+         player.MakeBet(It.IsAny<int>().Chips(), It.IsAny<int>().On());
 
-         Assert.AreEqual(It.IsAny<int>(), player.Bet.Chips);
+         Assert.AreEqual(It.IsAny<int>(), player.Bet.Chips.Count);
       }
 
       [Test]
@@ -86,9 +86,9 @@ namespace Tests
       {
          var player = new Player();
          player.Join(new Game());
-         player.BuyChips(chipsNumberPlayerHas);
+         player.BuyChips(chipsNumberPlayerHas.Chips());
 
-         Assert.Catch<InvalidOperationException>(() => player.MakeBet(chipsNumberPlayerBets));
+         Assert.Catch<InvalidOperationException>(() => player.MakeBet(chipsNumberPlayerBets.Chips(), It.IsAny<int>().On()));
       }
 
       [Test]
@@ -99,12 +99,26 @@ namespace Tests
       {
          var player = new Player();
          player.Join(new Game());
-         player.BuyChips(chipsNumberPlayerHas);
+         player.BuyChips(chipsNumberPlayerHas.Chips());
 
-         player.MakeBet(chipsNumberPlayerBets);
+         player.MakeBet(chipsNumberPlayerBets.Chips(), It.IsAny<int>().On());
 
-         Assert.AreEqual(chipsNumberPlayerBets, player.Bet.Chips);
+         Assert.AreEqual(chipsNumberPlayerBets, player.Bet.Chips.Count);
       }
+
+      [Test]
+      public void PlayerCanBetOnScore()
+      {
+         var player = new Player();
+         var game = new Game();
+         player.Join(game);
+         player.BuyChips(100.Chips());
+
+         player.MakeBet(5.Chips(), 2.On());
+
+         Assert.AreEqual(2, player.Bet.Score.Number);
+      }
+
    }
 
    

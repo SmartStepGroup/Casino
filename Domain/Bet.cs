@@ -2,12 +2,15 @@
 {
    public struct Bet
    {
-      public Bet(int chips)
+      public Bet(Chip chips, Score score)
          :this()
       {
          Chips = chips;
+         Score = score;
       }
 
-      public int Chips { get; private set; }
+      public Chip Chips { get; private set; }
+
+      public Score Score { get; private set; }
    }
 }
