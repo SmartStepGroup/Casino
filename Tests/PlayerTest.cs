@@ -78,14 +78,32 @@ namespace Tests
 
       [Test]
       [TestCase(10, 11)]
+      [TestCase(5, 8)]
+      [TestCase(100, 120)]
+      [TestCase(1, 13)]
+      [TestCase(9, 110)]
       public void MakeBetChipsMoreThenPlayerHas_PlayerInGameWithChips_ThrowInvalidOperationException(int chipsNumberPlayerHas, int chipsNumberPlayerBets)
       {
          var player = new Player();
          player.Join(new Game());
          player.BuyChips(chipsNumberPlayerHas);
 
-
          Assert.Catch<InvalidOperationException>(() => player.MakeBet(chipsNumberPlayerBets));
+      }
+
+      [Test]
+      [TestCase(11,10)]
+      [TestCase(100, 15)]
+      [TestCase(1, 1)]
+      public void PlayerCanBetIfHasSufficientChips(int chipsNumberPlayerHas, int chipsNumberPlayerBets)
+      {
+         var player = new Player();
+         player.Join(new Game());
+         player.BuyChips(chipsNumberPlayerHas);
+
+         player.MakeBet(chipsNumberPlayerBets);
+
+         Assert.AreEqual(chipsNumberPlayerBets, player.Bet.Chips);
       }
    }
 
