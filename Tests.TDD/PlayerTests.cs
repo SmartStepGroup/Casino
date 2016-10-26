@@ -70,31 +70,21 @@ namespace Tests.TDD
             Player player = new Player();
             Casino casino = new Casino();
 
-            player.BuyChips(casino, chips: 6);
+            player.BuyChips(casino, (Chips)6);
 
-            Assert.AreEqual(6, player.Chips);
-        }
-
-        [Test]
-        public void BuyNegativeAmountOfChips_PlayerInCasino_ThrowsArgumentOutOfRangeException()
-        {
-            Player player = new Player();
-            Casino casino = new Casino();
-
-            Assert.Catch<ArgumentOutOfRangeException>(() => player.BuyChips(casino, chips: -1));
+            Assert.AreEqual((Chips)6, player.Chips);
         }
 
         [Test]
         public void Bet_PlayerWithoutBet_PlayerHasBetWithCorrectValues()
         {
             Player player = new Player();
-            Casino casino = new Casino();
 
-            player.Bet(chips: 1, score: 2);
+            player.Bet((Chips)1, (Score)2);
 
             Assert.IsNotNull(player.CurrentBet);
-            Assert.AreEqual(1, player.CurrentBet.Chips);
-            Assert.AreEqual(2, player.CurrentBet.Score);
+            Assert.AreEqual((Chips)1, player.CurrentBet.Chips);
+            Assert.AreEqual((Score)2, player.CurrentBet.Score);
         }
     }
 }

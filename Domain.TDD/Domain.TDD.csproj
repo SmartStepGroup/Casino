@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="Bet.cs" />
     <Compile Include="Casino.cs" />
+    <Compile Include="Score.cs" />
+    <Compile Include="Chips.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

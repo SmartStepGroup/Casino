@@ -2,14 +2,14 @@
 {
     public class Bet
     {
-        public Bet(int chips, int score)
+        public Bet(Chips chips, Score score)
         {
             Chips = chips;
             Score = score;
         }
 
-        public int Chips { get; private set; }
+        public Chips Chips { get; private set; }
 
-        public int Score { get; private set; }
+        public Score Score { get; private set; }
     }
 }

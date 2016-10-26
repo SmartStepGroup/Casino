@@ -22,7 +22,7 @@ namespace Domain.TDD
         }
 
         public bool IsInGame { get { return _game != null; } }
-        public int Chips { get; private set; }
+        public Chips Chips { get; private set; }
         public Bet CurrentBet { get; set; }
 
         public void Leave()
@@ -37,17 +37,12 @@ namespace Domain.TDD
             }
         }
 
-        public void BuyChips(Casino casino, int chips)
+        public void BuyChips(Casino casino, Chips chips)
         {
-            if (chips <= 0)
-            {
-                throw new ArgumentOutOfRangeException("chips");
-            }
-
             Chips += chips;
         }
 
-        public void Bet(int chips, int score)
+        public void Bet(Chips chips, Score score)
         {
             CurrentBet = new Bet(chips, score);
         }
