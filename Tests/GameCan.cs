@@ -19,6 +19,17 @@ namespace Tests
         }
 
         [Test]
+        public void LeaveGame_InGame_NoLeftPlayer()
+        {
+            var player = new Player();
+            var game = new RollDiceGame();
+            player.Join(game);
+            player.LeaveGame();
+
+            Assert.IsNull(game.Player);
+        }
+
+        [Test]
         public void SixPlayersJoinGame_NoOneInGame_SixPlayersInGame()
         {
             var game = new RollDiceGame();

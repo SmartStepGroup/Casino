@@ -75,23 +75,23 @@ namespace Tests
         }
 
         [Test]
-        public void PlayerBetOneChip_CreateBetWithOneChip()
+        public void PlayerBetFiveChips_CreateBetWithOneChip()
         {
             var player = new Player();
-            player.BuyChips(1);
+            player.BuyChips(5);
 
-            player.Bet(1, 1);
+            player.Bet(5, 1);
 
-            Assert.AreEqual(1, player.Bets.Last().Chips);
+            Assert.AreEqual(5, player.Bets.Last().Chips);
         }
 
         [Test]
         public void PlayerBetForScoreOne_CreateBetWithScoreOne()
         {
             var player = new Player();
-            player.BuyChips(1);
+            player.BuyChips(5);
 
-            player.Bet(1, 1);
+            player.Bet(5, 1);
 
             Assert.AreNotEqual(-1, player.Bets.FindIndex(x => x.Score == 1));
         }
@@ -102,12 +102,12 @@ namespace Tests
             var player = new Player();
             var game = new RollDiceGame();
             player.Join(game);
-            player.BuyChips(1);
-            player.Bet(1, 1);
+            player.BuyChips(5);
+            player.Bet(5, 1);
 
             game.Play();
 
-            Assert.AreEqual(1*6, player.CurrentChips);
+            Assert.AreEqual(5*6, player.CurrentChips);
         }
 
         [Test]
@@ -123,10 +123,10 @@ namespace Tests
         public void PlayerCanBetTwice()
         {
             var player = new Player();
-            player.BuyChips(2);
+            player.BuyChips(10);
 
-            player.Bet(1, 1);
-            player.Bet(1, 2);
+            player.Bet(5, 1);
+            player.Bet(5, 2);
 
             Assert.AreEqual(2, player.Bets.Count);
         }

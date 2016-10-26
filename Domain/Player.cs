@@ -7,6 +7,7 @@ namespace Domain
     public class Player
     {
         private const int _maxBetScore = 6;
+        private RollDiceGame _game;
 
         public bool IsInGame { get; set; }
         public int CurrentChips { get; set; }
@@ -23,6 +24,7 @@ namespace Domain
             {
                 throw new InvalidOperationException();
             }
+            _game = game;
             game.Player = this;
             game.PlayerCount++;
             IsInGame = true;
@@ -34,6 +36,7 @@ namespace Domain
             {
                 throw new InvalidOperationException();
             }
+            _game.Player = null;
             IsInGame = false;
         }
 
@@ -44,7 +47,8 @@ namespace Domain
 
         public void Bet(int betChips, int score)
         {
-            if (CurrentChips < betChips
+            if (betChips % 5 != 0
+                || CurrentChips < betChips
                 || score > _maxBetScore)
             {
                 throw new InvalidOperationException();
