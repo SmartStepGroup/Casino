@@ -54,8 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PlayerTest.cs" />
-    <Compile Include="RollDiceGameTest.cs" />
+    <Compile Include="PlayerCan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -63,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">
-      <Project>{7711783C-A47A-4DEF-B9C7-2E80A11AC3CA}</Project>
+      <Project>{7711783c-a47a-4def-b9c7-2e80a11ac3ca}</Project>
       <Name>Domain</Name>
     </ProjectReference>
   </ItemGroup>
