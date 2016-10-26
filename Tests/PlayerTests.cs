@@ -63,5 +63,13 @@ namespace Tests
 
 			Assert.Catch<InvalidOperationException>(() => player.Joins(new RollDiceGame()));
 		}
+
+		[Test]
+		public void ByDefault_HasNoChips()
+		{
+			var player = new Player();
+
+			Assert.AreEqual(0, player.Chips);
+		}
 	}
 }
