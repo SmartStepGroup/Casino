@@ -1,13 +1,15 @@
 ﻿using System;
 using Domain.TDD;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
+using Assert = NUnit.Framework.Assert;
 
 namespace Tests.TDD
 {
-    [TestFixture]
+    [TestFixture, TestClass]
     public class PlayerTests
     {
-        [Test]
+        [Test, TestMethod]
         public void Join_NewPlayer_InGame()
         {
             Player player = new Player();
@@ -18,7 +20,7 @@ namespace Tests.TDD
             Assert.IsTrue(player.IsInGame);
         }
 
-        [Test]
+        [Test, TestMethod]
         public void Leave_NewPlayer_NotInGame()
         {
             Player player = new Player();
@@ -30,12 +32,24 @@ namespace Tests.TDD
             Assert.IsFalse(player.IsInGame);
         }
 
-        [Test]
+        [Test, TestMethod]
         public void Leave_PlayerNotInGame_ThrowsInvalidOperationException()
         {
             Player player = new Player();
 
             Assert.Catch<InvalidOperationException>(() => player.Leave());
         }
+
+        [Test, TestMethod]
+        public void Join_PlayerInGame_ThrowsInvalidOperationException()
+        {
+            Player player = new Player();
+            Game game = new Game();
+            player.Join(game);
+
+            Assert.Catch<InvalidOperationException>(() => player.Join(game));
+        }
+
+
     }
 }

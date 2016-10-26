@@ -10,6 +10,11 @@ namespace Domain.TDD
     {
         public void Join(Game game)
         {
+            if (IsInGame)
+            {
+                throw new InvalidOperationException();
+            }
+
             IsInGame = true;
         }
 
