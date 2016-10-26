@@ -44,7 +44,7 @@ namespace Tests
         }
 
         [Test]
-        public void LeaveGameTwice_InGame_Exception()
+        public void LeaveGameTwiceThrowsException()
         {
             var player = new Player();
             player.Join(new RollDiceGame());
@@ -54,25 +54,13 @@ namespace Tests
         }
 
         [Test]
-        public void JoinGameTwice_InGame_Exception()
+        public void JoinGameTwiceThrowsException()
         {
             var player = new Player();
             var game = new RollDiceGame();
             player.Join(game);
 
             Assert.Catch<InvalidOperationException>(() => { player.Join(game); });
-        }
-
-        [Test]
-        public void InGameOnePlayer_NullPlayers_One()
-        {
-            var player = new Player();
-            var game = new RollDiceGame();
-
-            player.Join(game);
-
-            const int onePlayer = 1;
-            Assert.AreEqual(onePlayer, game.PlayerCount);
         }
     }
 }

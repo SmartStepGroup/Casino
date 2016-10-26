@@ -12,6 +12,7 @@ namespace Domain
             {
                 throw new InvalidOperationException();
             }
+            game.PlayerCount++;
             IsInGame = true;
         }
 

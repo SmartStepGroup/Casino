@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameCan.cs" />
     <Compile Include="PlayerCan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
