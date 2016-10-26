@@ -1,4 +1,6 @@
-﻿using System.Security.Permissions;
+﻿using System;
+using System.Data;
+using System.Security.Permissions;
 using System.Security.Policy;
 using Domain;
 using NUnit.Framework;
@@ -29,15 +31,25 @@ namespace Tests
 
 
         [Test]
-        public void GoOut_IsNotInGame()
+        public void GoOut_NotJoin_ThrowsInvalidOperationException()
         {
             var player = new Player();
+
+            Assert.Catch<InvalidOperationException>(() => player.GoOutFromGame());
+        }
+
+
+        [Test]
+        public void GoOut_AfterJoin_IsNotInGame()
+        {
+            var player = new Player();
+            var game = new Game();
+            player.Join(game);
 
             player.GoOutFromGame();
 
             Assert.IsFalse(player.InGame);
         }
-        
 
     }
 }
