@@ -9,7 +9,7 @@ namespace Domain.TDD
     public class Game
     {
         private int _count;
-        public void NotifyNewPLayer(Player player)
+        public void NotifyNewPlayer(Player player)
         {
             if (_count == 6)
             {

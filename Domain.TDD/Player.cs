@@ -18,10 +18,11 @@ namespace Domain.TDD
             }
 
             _game = game;
-            _game.NotifyNewPLayer(this);
+            _game.NotifyNewPlayer(this);
         }
 
         public bool IsInGame { get { return _game != null; } }
+        public int Chips { get; private set; }
 
         public void Leave()
         {
@@ -33,6 +34,16 @@ namespace Domain.TDD
             {
                 throw new InvalidOperationException();
             }
+        }
+
+        public void BuyChips(Casino casino, int chips)
+        {
+            if (chips <= 0)
+            {
+                throw new ArgumentOutOfRangeException("chips");
+            }
+
+            Chips += chips;
         }
     }
 }

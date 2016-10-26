@@ -63,5 +63,25 @@ namespace Tests.TDD
 
             Assert.Catch<InvalidOperationException>(() => new Player().Join(game));
         }
+
+        [Test, TestMethod]
+        public void BuyChips_PlayerAndCasino_PlayerHasChips()
+        {
+            Player player = new Player();
+            Casino casino = new Casino();
+
+            player.BuyChips(casino, chips: 6);
+
+            Assert.AreEqual(6, player.Chips);
+        }
+
+        [Test, TestMethod]
+        public void BuyNegativeAmountOfChips_PlayerAndCasino_ThrowsArgumentOutOfRangeException()
+        {
+            Player player = new Player();
+            Casino casino = new Casino();
+
+            Assert.Catch<ArgumentOutOfRangeException>(() => player.BuyChips(casino, chips: -1));
+        }
     }
 }
