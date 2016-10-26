@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using System;
+using Domain;
 using NUnit.Framework;
 
 namespace Tests
@@ -7,7 +8,15 @@ namespace Tests
     public class PlayerCan
     {
         [Test]
-        public void JoinGame()
+        public void ByDefault_NotInGame()
+        {
+            var player = new Player();
+
+            Assert.False(player.IsInGame);
+        }
+
+        [Test]
+        public void JoinGame_GameExist_PlayerInGame()
         {
             var player = new Player();
             var game = new RollDiceGame();
@@ -18,11 +27,17 @@ namespace Tests
         }
 
         [Test]
-        public void ByDefault_NotInGame()
+        public void LeaveGame_NotInGame_Exception()
         {
             var player = new Player();
 
-            Assert.False(player.IsInGame);
+            Assert.Catch<InvalidOperationException>(() => { player.LeaveGame(); });
         }
     }
 }
+
+//Я, как игрок, могу войти в игру
+//Я, как игрок, могу выйти из игры
+//Я, как игрок, не могу выйти из игры, если я в нее не входил
+//Я, как игрок, могу играть только в одну игру одновременно
+//Я, как игра, не позволяю войти более чем 6 игрокам

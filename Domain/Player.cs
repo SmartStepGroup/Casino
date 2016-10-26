@@ -10,5 +10,10 @@ namespace Domain
         {
             IsInGame = true;
         }
+
+        public void LeaveGame()
+        {
+            throw new InvalidOperationException();
+        }
     }
 }
