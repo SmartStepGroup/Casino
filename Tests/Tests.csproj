@@ -59,6 +59,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dice.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Dice.feature</DependentUpon>
+    </Compile>
     <Compile Include="DiceSteps.cs" />
     <Compile Include="DSL\Create.cs" />
     <Compile Include="DSL\PlayerBuilder.cs" />
@@ -67,6 +72,7 @@
     <Compile Include="PlayerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PlaingDslTests.cs" />
+    <Compile Include="ShimSupport.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -84,6 +90,10 @@
       <SubType>Designer</SubType>
     </None>
     <Fakes Include="Fakes\Domain.fakes" />
+    <None Include="Dice.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Dice.feature.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
