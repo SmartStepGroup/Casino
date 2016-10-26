@@ -93,8 +93,20 @@ namespace Tests
             var player =new Player();
             player.BuyChips(new Chips(1));
 
-
             Assert.Catch<Exception>(()=> player.Bet(new Chips(2), new Score(6)));
+        }
+
+        [Test]
+        public void Do2Bets_Has2bets()
+        {
+            var player = new Player();
+            player.BuyChips(new Chips(2));
+            player.Bet(new Chips(2), new Score(6));
+
+            player.Bet(new Chips(2), new Score(6));
+
+          //  Assert.AreEqual(2, player.Bets.Count);
+
         }
     }
 
