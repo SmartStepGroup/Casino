@@ -33,6 +33,18 @@ namespace Tests
 
             Assert.Catch<InvalidOperationException>(() => { player.LeaveGame(); });
         }
+
+        [Test]
+        public void LeaveGame_InGame_NotInGame()
+        {
+            var player = new Player();
+            var game = new RollDiceGame();
+            player.Join(game);
+
+            player.LeaveGame();
+
+            Assert.False(player.IsInGame);
+        }
     }
 }
 
