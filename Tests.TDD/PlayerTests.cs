@@ -6,10 +6,10 @@ using Assert = NUnit.Framework.Assert;
 
 namespace Tests.TDD
 {
-    [TestFixture, TestClass]
+    [TestFixture]
     public class PlayerTests
     {
-        [Test, TestMethod]
+        [Test]
         public void Join_NewPlayer_InGame()
         {
             Player player = new Player();
@@ -20,7 +20,7 @@ namespace Tests.TDD
             Assert.IsTrue(player.IsInGame);
         }
 
-        [Test, TestMethod]
+        [Test]
         public void Leave_NewPlayer_NotInGame()
         {
             Player player = new Player();
@@ -32,7 +32,7 @@ namespace Tests.TDD
             Assert.IsFalse(player.IsInGame);
         }
 
-        [Test, TestMethod]
+        [Test]
         public void Leave_PlayerIsNotInGame_ThrowsInvalidOperationException()
         {
             Player player = new Player();
@@ -40,7 +40,7 @@ namespace Tests.TDD
             Assert.Catch<InvalidOperationException>(() => player.Leave());
         }
 
-        [Test, TestMethod]
+        [Test]
         public void Join_PlayerIsInGame_ThrowsInvalidOperationException()
         {
             Player player = new Player();
@@ -50,7 +50,7 @@ namespace Tests.TDD
             Assert.Catch<InvalidOperationException>(() => player.Join(game));
         }
 
-        [Test, TestMethod]
+        [Test]
         public void JoinAnother_6PlayersInGame_ThrowsInvaliOperationException()
         {
             Game game = new Game();
@@ -64,7 +64,7 @@ namespace Tests.TDD
             Assert.Catch<InvalidOperationException>(() => new Player().Join(game));
         }
 
-        [Test, TestMethod]
+        [Test]
         public void BuyChips_PlayerAndCasino_PlayerHasChips()
         {
             Player player = new Player();
@@ -75,13 +75,26 @@ namespace Tests.TDD
             Assert.AreEqual(6, player.Chips);
         }
 
-        [Test, TestMethod]
-        public void BuyNegativeAmountOfChips_PlayerAndCasino_ThrowsArgumentOutOfRangeException()
+        [Test]
+        public void BuyNegativeAmountOfChips_PlayerInCasino_ThrowsArgumentOutOfRangeException()
         {
             Player player = new Player();
             Casino casino = new Casino();
 
             Assert.Catch<ArgumentOutOfRangeException>(() => player.BuyChips(casino, chips: -1));
+        }
+
+        [Test]
+        public void Bet_PlayerWithoutBet_PlayerHasBetWithCorrectValues()
+        {
+            Player player = new Player();
+            Casino casino = new Casino();
+
+            player.Bet(chips: 1, score: 2);
+
+            Assert.IsNotNull(player.CurrentBet);
+            Assert.AreEqual(1, player.CurrentBet.Chips);
+            Assert.AreEqual(2, player.CurrentBet.Score);
         }
     }
 }

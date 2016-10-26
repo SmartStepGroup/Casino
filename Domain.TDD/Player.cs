@@ -23,6 +23,7 @@ namespace Domain.TDD
 
         public bool IsInGame { get { return _game != null; } }
         public int Chips { get; private set; }
+        public Bet CurrentBet { get; set; }
 
         public void Leave()
         {
@@ -44,6 +45,11 @@ namespace Domain.TDD
             }
 
             Chips += chips;
+        }
+
+        public void Bet(int chips, int score)
+        {
+            CurrentBet = new Bet(chips, score);
         }
     }
 }
