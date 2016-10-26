@@ -6,10 +6,10 @@ using Assert = NUnit.Framework.Assert;
 
 namespace Tests.TDD
 {
-    [TestFixture]
+    [TestFixture, TestClass]
     public class PlayerTests
     {
-        [Test]
+        [Test, TestMethod]
         public void Join_NewPlayer_InGame()
         {
             Player player = new Player();
@@ -20,7 +20,7 @@ namespace Tests.TDD
             Assert.IsTrue(player.IsInGame);
         }
 
-        [Test]
+        [Test, TestMethod]
         public void Leave_NewPlayer_NotInGame()
         {
             Player player = new Player();
@@ -32,7 +32,7 @@ namespace Tests.TDD
             Assert.IsFalse(player.IsInGame);
         }
 
-        [Test]
+        [Test, TestMethod]
         public void Leave_PlayerIsNotInGame_ThrowsInvalidOperationException()
         {
             Player player = new Player();
@@ -40,7 +40,7 @@ namespace Tests.TDD
             Assert.Catch<InvalidOperationException>(() => player.Leave());
         }
 
-        [Test]
+        [Test, TestMethod]
         public void Join_PlayerIsInGame_ThrowsInvalidOperationException()
         {
             Player player = new Player();
@@ -50,7 +50,7 @@ namespace Tests.TDD
             Assert.Catch<InvalidOperationException>(() => player.Join(game));
         }
 
-        [Test]
+        [Test, TestMethod]
         public void JoinAnother_6PlayersInGame_ThrowsInvaliOperationException()
         {
             Game game = new Game();
@@ -64,7 +64,7 @@ namespace Tests.TDD
             Assert.Catch<InvalidOperationException>(() => new Player().Join(game));
         }
 
-        [Test]
+        [Test, TestMethod]
         public void BuyChips_PlayerAndCasino_PlayerHasChips()
         {
             Player player = new Player();
@@ -75,7 +75,7 @@ namespace Tests.TDD
             Assert.AreEqual((Chips)6, player.Chips);
         }
 
-        [Test]
+        [Test, TestMethod]
         public void Bet_PlayerWithoutBet_PlayerHasBetWithCorrectValues()
         {
             Player player = new Player();
