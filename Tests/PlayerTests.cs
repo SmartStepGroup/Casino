@@ -3,6 +3,7 @@ using System.Data;
 using System.Security.Permissions;
 using System.Security.Policy;
 using Domain;
+using Moq;
 using NUnit.Framework;
 
 namespace Tests
@@ -70,6 +71,18 @@ namespace Tests
             player.BuyChips(1);
 
             Assert.AreEqual(1, player.Chips);
+        }
+
+        [Test]
+        public void BetAny_Wins()
+        {
+            var player = new Mock<Player>();
+            var game = new Game();
+            player.Object.Join(game);
+
+            game.Play();
+
+            player.Verify(x => x.Win(), Times.Once);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Domain
                 throw new InvalidOperationException();
             }
 
-            InGame = game.AddPlayer();
+            InGame = game.AddPlayer(this);
             return InGame;
         }
 
@@ -34,6 +34,11 @@ namespace Domain
         public void BuyChips(uint chips)
         {
             Chips += chips;
+        }
+
+        public virtual void Win()
+        {
+            
         }
     }
 }

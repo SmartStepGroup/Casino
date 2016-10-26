@@ -4,15 +4,25 @@ namespace Domain
 {
     public class Game
     {
-        private int PlayersCounter = 0;
+        private readonly List<Player> _scopePlayers = new List<Player>();
 
-        public bool AddPlayer()
+
+        public bool AddPlayer(Player player)
         {
-            if (PlayersCounter >= 6)
+            
+            if (_scopePlayers.Count >= 6)
                 return false;
 
-            PlayersCounter++;
+            _scopePlayers.Add(player);
             return true;
+        }
+
+        public void Play()
+        {
+            foreach (var player in _scopePlayers)
+            {
+                player.Win();
+            }
         }
     }
 }
