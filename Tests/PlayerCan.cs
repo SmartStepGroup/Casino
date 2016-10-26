@@ -19,9 +19,7 @@ namespace Tests
         public void JoinGame_GameExist_PlayerInGame()
         {
             var player = new Player();
-            var game = new RollDiceGame();
-
-            player.Join(game);
+            player.Join(new RollDiceGame());
 
             Assert.True(player.IsInGame);
         }
@@ -38,8 +36,7 @@ namespace Tests
         public void LeaveGame_InGame_NotInGame()
         {
             var player = new Player();
-            var game = new RollDiceGame();
-            player.Join(game);
+            player.Join(new RollDiceGame());
 
             player.LeaveGame();
 
@@ -50,9 +47,7 @@ namespace Tests
         public void LeaveGameTwice_InGame_Exception()
         {
             var player = new Player();
-            var game = new RollDiceGame();
-            player.Join(game);
-
+            player.Join(new RollDiceGame());
             player.LeaveGame();
 
             Assert.Catch<InvalidOperationException>(() => { player.LeaveGame(); });
