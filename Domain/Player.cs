@@ -18,8 +18,15 @@ namespace Domain
             return;
          }
 
-         ++game.CountPlayers;
+         game.JoinPlayer(this);
          IsInGame = true;
+      }
+
+      public void Leave()
+      {
+         IsInGame = false;
       }
    }
 }
+
+
