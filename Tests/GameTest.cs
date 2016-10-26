@@ -22,6 +22,17 @@ namespace Tests
          Assert.IsFalse(player.IsInGame);
       }
 
+      [Test]
+      public void Join7thPlayer_6PlayersInGame_PlayersInGameIs6()
+      {
+         Game game = createGameWithPlayers(6);
+
+         Player player = new Player();
+         player.Join(game);
+
+         Assert.AreEqual(6, game.CountPlayers);
+      }
+
       private Game createGameWithPlayers(int playerCount)
       {
          Game game = new Game();

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading;
 using Domain;
+using Moq;
 using NUnit.Framework;
 
 namespace Tests
@@ -43,6 +45,23 @@ namespace Tests
          player.Join(new Game());
 
          Assert.Catch<InvalidOperationException>(() => player.Join(new Game()));
+      }
+
+      [Test]
+      [TestCase(0)]
+      [TestCase(1)]
+      [TestCase(2)]
+      [TestCase(3)]
+      [TestCase(10)]
+      [TestCase(100)]
+      [TestCase(1000)]
+      public void BuyChips_PlayerByDefault_HasBoughtNumberChips(int chipsNumber)
+      {
+         var player = new Player();
+
+         player.BuyChips(chipsNumber);
+
+         Assert.AreEqual(chipsNumber, player.CountChips);
       }
    }
 }

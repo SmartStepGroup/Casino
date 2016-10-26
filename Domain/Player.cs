@@ -6,6 +6,13 @@ namespace Domain
    {
       public bool IsInGame { get; private set; }
 
+      public int CountChips { get; private set; }
+
+      public void BuyChips(int chipsNumber)
+      {
+         CountChips += chipsNumber;
+      }
+
       public void Join(Game game)
       {
          if (IsInGame)
