@@ -45,6 +45,18 @@ namespace Tests
 
             Assert.False(player.IsInGame);
         }
+
+        [Test]
+        public void LeaveGameTwice_InGame_Exception()
+        {
+            var player = new Player();
+            var game = new RollDiceGame();
+            player.Join(game);
+
+            player.LeaveGame();
+
+            Assert.Catch<InvalidOperationException>(() => { player.LeaveGame(); });
+        }
     }
 }
 
