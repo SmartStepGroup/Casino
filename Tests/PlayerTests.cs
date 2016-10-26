@@ -75,17 +75,20 @@ namespace Tests
         }
 
         [Test]
-        public void BetAny_Wins()
+        public void GamePlay_BetAll_Wins()
         {
             var player = new Mock<Player>();
             var game = new Game();
             player.Object.Join(game);
-          
+            player.Object.Bet(player.Object.Cash, new Score(1));
+
             game.Play();
 
             player.Verify(x => x.Win(), Times.Once);
         }
     }
+
+
 }
 
 

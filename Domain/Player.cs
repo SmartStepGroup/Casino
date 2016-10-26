@@ -6,6 +6,7 @@ using System.Diagnostics.PerformanceData;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 
 namespace Domain
 {
@@ -36,6 +37,11 @@ namespace Domain
         public void BuyChips(Chips chips)
         {
             Cash.Add(chips);
+        }
+
+        public void Bet(Chips chips, Score score)
+        {
+            
         }
 
         public virtual void Win()
