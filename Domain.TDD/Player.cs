@@ -7,9 +7,11 @@ namespace Domain.TDD
    {
       private Game _game;
       private readonly List<Bet> _currentBets;
+      private readonly Casino _casino;
 
-      public Player()
+      public Player(Casino casino)
       {
+         _casino = casino;
          _currentBets = new List<Bet>();
       }
 
@@ -50,9 +52,9 @@ namespace Domain.TDD
       public void Bet(Chips chips, Score score)
       {
          if (chips > Chips)
-            throw new InvalidOperationException();
+            throw new InvalidOperationException("Недостаточно фишек.");
 
-         Bet bet = new Bet(chips, score);
+         Bet bet = _casino.Bet(new BetRequest(chips, score));
 
          _currentBets.Add(bet);
       }

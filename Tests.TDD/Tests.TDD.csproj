@@ -54,6 +54,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CasinoTests.cs" />
     <Compile Include="ScoreTests.cs" />
     <Compile Include="ChipsTests.cs" />
     <Compile Include="BetTests.cs" />
