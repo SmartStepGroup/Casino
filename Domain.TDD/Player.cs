@@ -14,5 +14,10 @@ namespace Domain.TDD
         }
 
         public bool IsInGame { get; private set; }
+
+        public void Leave()
+        {
+            IsInGame = false;
+        }
     }
 }

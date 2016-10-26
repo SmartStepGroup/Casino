@@ -11,15 +11,24 @@ namespace Tests.TDD
     public class PlayerTests
     {
         [Test]
-        public void Join_Player_InGame()
+        public void Join_NewPlayer_InGame()
         {
             Player player = new Player();
-
             Game game = new Game();
 
             player.Join(game);
 
             Assert.IsTrue(player.IsInGame);
+        }
+
+        [Test]
+        public void Leave_NewPlayer_NotInGame()
+        {
+            Player player = new Player();
+
+            player.Leave();
+
+            Assert.IsFalse(player.IsInGame);
         }
     }
 }
