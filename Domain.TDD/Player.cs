@@ -17,7 +17,15 @@ namespace Domain.TDD
 
         public void Leave()
         {
-            IsInGame = false;
+            if (IsInGame)
+            {
+                IsInGame = false;
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+
         }
     }
 }

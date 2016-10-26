@@ -1,9 +1,6 @@
 ﻿using System;
-using Domain;
 using Domain.TDD;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
-using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace Tests.TDD
 {
@@ -25,10 +22,20 @@ namespace Tests.TDD
         public void Leave_NewPlayer_NotInGame()
         {
             Player player = new Player();
+            Game game = new Game();
+            player.Join(game);
 
             player.Leave();
 
             Assert.IsFalse(player.IsInGame);
+        }
+
+        [Test]
+        public void Leave_PlayerNotInGame_ThrowsInvalidOperationException()
+        {
+            Player player = new Player();
+
+            Assert.Catch<InvalidOperationException>(() => player.Leave());
         }
     }
 }
