@@ -108,6 +108,15 @@ namespace Tests
 
             Assert.AreEqual(1*6, player.Chips);
         }
+
+        [Test]
+        public void PlayerBetsMoreThanHave_ThrowsException()
+        {
+            var player = new Player();
+            player.BuyChips(1);
+
+            Assert.Catch<InvalidOperationException>(() => { player.Bet(2, 1); });
+        }
     }
 }
 

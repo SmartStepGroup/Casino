@@ -35,6 +35,10 @@ namespace Domain
 
         public void Bet(int chips, int score)
         {
+            if (Chips < chips)
+            {
+                throw new InvalidOperationException();
+            }
             Chips -= chips;
             CurrentBet = new Bet();
         }
