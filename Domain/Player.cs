@@ -41,5 +41,6 @@ namespace Domain
     public class Bet
     {
         public int Chips => 1;
+        public int Score => 1;
     }
 }

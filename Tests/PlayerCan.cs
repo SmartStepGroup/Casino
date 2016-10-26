@@ -83,6 +83,17 @@ namespace Tests
 
             Assert.AreEqual(1, player.CurrentBet.Chips);
         }
+
+        [Test]
+        public void PlayerBetForScoreOne_CreateBetWithScoreOne()
+        {
+            var player = new Player();
+            player.BuyChips(1);
+
+            player.Bet(1, 1);
+
+            Assert.AreEqual(1, player.CurrentBet.Score);
+        }
     }
 }
 
