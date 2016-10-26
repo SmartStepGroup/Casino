@@ -1,7 +1,9 @@
 ﻿using System;
 
-namespace Domain {
-    public class Player {
+namespace Domain
+{
+	public class Player
+	{
 		public bool IsInGame { get; private set; }
 
 		public void Joins(RollDiceGame game)
@@ -11,6 +13,7 @@ namespace Domain {
 				throw new InvalidOperationException();
 			}
 			IsInGame = true;
+			++game.PlayerCount;
 		}
 
 		public void LeaveGame()
