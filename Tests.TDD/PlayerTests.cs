@@ -6,85 +6,106 @@ using Assert = NUnit.Framework.Assert;
 
 namespace Tests.TDD
 {
-    [TestFixture, TestClass]
-    public class PlayerTests
-    {
-        [Test, TestMethod]
-        public void Join_NewPlayer_InGame()
-        {
-            Player player = new Player();
-            Game game = new Game();
+   [TestFixture]
+   [TestClass]
+   public class PlayerTests
+   {
+      [Test]
+      [TestMethod]
+      public void Bet_PlayerWithoutBet_PlayerHasBetWithCorrectValues()
+      {
+         var player = new Player();
+         var casino = new Casino();
+         player.BuyChips(casino, (Chips) 1);
 
-            player.Join(game);
+         player.Bet((Chips) 1, (Score) 2);
 
-            Assert.IsTrue(player.IsInGame);
-        }
+         Assert.IsNotNull(player.CurrentBet);
+         Assert.AreEqual((Chips) 1, player.CurrentBet.Chips);
+         Assert.AreEqual((Score) 2, player.CurrentBet.Score);
+      }
 
-        [Test, TestMethod]
-        public void Leave_NewPlayer_NotInGame()
-        {
-            Player player = new Player();
-            Game game = new Game();
-            player.Join(game);
+      [Test]
+      [TestMethod]
+      public void Bet6Chips_PlayerHas5Chips_ThrowsInvalidOperationException()
+      {
+         var player = new Player();
+         var casino = new Casino();
+         player.BuyChips(casino, (Chips) 5);
 
-            player.Leave();
+         Assert.Catch<InvalidOperationException>(() => player.Bet((Chips) 6, (Score) 2));
+      }
 
-            Assert.IsFalse(player.IsInGame);
-        }
+      [Test]
+      [TestMethod]
+      public void BuyChips_PlayerAndCasino_PlayerHasChips()
+      {
+         var player = new Player();
+         var casino = new Casino();
 
-        [Test, TestMethod]
-        public void Leave_PlayerIsNotInGame_ThrowsInvalidOperationException()
-        {
-            Player player = new Player();
+         player.BuyChips(casino, (Chips) 6);
 
-            Assert.Catch<InvalidOperationException>(() => player.Leave());
-        }
+         Assert.AreEqual((Chips) 6, player.Chips);
+      }
 
-        [Test, TestMethod]
-        public void Join_PlayerIsInGame_ThrowsInvalidOperationException()
-        {
-            Player player = new Player();
-            Game game = new Game();
-            player.Join(game);
+      [Test]
+      [TestMethod]
+      public void Join_NewPlayer_InGame()
+      {
+         var player = new Player();
+         var game = new Game();
 
-            Assert.Catch<InvalidOperationException>(() => player.Join(game));
-        }
+         player.Join(game);
 
-        [Test, TestMethod]
-        public void JoinAnother_6PlayersInGame_ThrowsInvaliOperationException()
-        {
-            Game game = new Game();
-            new Player().Join(game);
-            new Player().Join(game);
-            new Player().Join(game);
-            new Player().Join(game);
-            new Player().Join(game);
-            new Player().Join(game);
+         Assert.IsTrue(player.IsInGame);
+      }
 
-            Assert.Catch<InvalidOperationException>(() => new Player().Join(game));
-        }
+      [Test]
+      [TestMethod]
+      public void Join_PlayerIsInGame_ThrowsInvalidOperationException()
+      {
+         var player = new Player();
+         var game = new Game();
+         player.Join(game);
 
-        [Test, TestMethod]
-        public void BuyChips_PlayerAndCasino_PlayerHasChips()
-        {
-            Player player = new Player();
-            Casino casino = new Casino();
+         Assert.Catch<InvalidOperationException>(() => player.Join(game));
+      }
 
-            player.BuyChips(casino, (Chips)6);
+      [Test]
+      [TestMethod]
+      public void JoinAnother_6PlayersInGame_ThrowsInvaliOperationException()
+      {
+         var game = new Game();
+         new Player().Join(game);
+         new Player().Join(game);
+         new Player().Join(game);
+         new Player().Join(game);
+         new Player().Join(game);
+         new Player().Join(game);
 
-            Assert.AreEqual((Chips)6, player.Chips);
-        }
+         Assert.Catch<InvalidOperationException>(() => new Player().Join(game));
+      }
 
-        [Test, TestMethod]
-        public void Bet_PlayerWithoutBet_PlayerHasBetWithCorrectValues()
-        {
-            Player player = new Player();
+      [Test]
+      [TestMethod]
+      public void Leave_NewPlayer_NotInGame()
+      {
+         var player = new Player();
+         var game = new Game();
+         player.Join(game);
 
-            player.Bet((Chips)1, (Score)2);
+         player.Leave();
 
-            Assert.IsNotNull(player.CurrentBet);
-            Assert.AreEqual((Chips)1, player.CurrentBet.Chips);
-            Assert.AreEqual((Score)2, player.CurrentBet.Score);
-        }
-    }
+         Assert.IsFalse(player.IsInGame);
+      }
+
+      [Test]
+      [TestMethod]
+      public void Leave_PlayerIsNotInGame_ThrowsInvalidOperationException()
+      {
+         var player = new Player();
+
+         Assert.Catch<InvalidOperationException>(() => player.Leave());
+      }
+   }
 }

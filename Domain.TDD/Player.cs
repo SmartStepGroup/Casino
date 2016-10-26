@@ -42,9 +42,15 @@ namespace Domain.TDD
             Chips += chips;
         }
 
-        public void Bet(Chips chips, Score score)
-        {
-            CurrentBet = new Bet(chips, score);
-        }
+       public void Bet(Chips chips, Score score)
+       {
+          if (chips > Chips)
+          {
+             throw new InvalidOperationException();
+          }
+
+          CurrentBet = new Bet(chips, score);
+       }
     }
 }
+

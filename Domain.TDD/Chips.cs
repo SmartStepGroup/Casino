@@ -25,5 +25,15 @@ namespace Domain.TDD
         {
             return new Chips(value);
         }
-    }
+
+      public static bool operator >(Chips left, Chips right)
+      {
+         return left.Value > right.Value;
+      }
+
+      public static bool operator <(Chips left, Chips right)
+      {
+         return left.Value < right.Value;
+      }
+   }
 }
