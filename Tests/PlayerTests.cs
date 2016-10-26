@@ -1,6 +1,7 @@
 ﻿using System;
 using Domain;
 using NUnit.Framework;
+using System.Linq;
 
 namespace Tests
 {
@@ -87,7 +88,7 @@ namespace Tests
 		{
 			var player = new Player();
 
-			Assert.IsNull(player.CurrentBet);
+			Assert.AreEqual(0, player.CurrentBet.Bets.Count);
 		}
 
 		[Test]
@@ -98,7 +99,7 @@ namespace Tests
 
 			player.Bet(new Bet(chips: x, score: y));
 
-			Assert.AreEqual(new Bet(chips: x, score: y), player.CurrentBet);
+			Assert.IsTrue(player.CurrentBet.Bets.Contains(new Bet(chips: x, score: y)));
 		}
 
 		[Test]
@@ -108,6 +109,37 @@ namespace Tests
 			player.BuyChips(x);
 
 			Assert.Catch<InvalidOperationException>(() => player.Bet(new Bet(chips: y, score: 1)));
+		}
+
+		[Test]
+		public void CanBetOnSeveralScores()
+		{
+			var player = new Player();
+			player.BuyChips(3);
+
+			player.Bet(new Bet(chips: 1, score: 1));
+			player.Bet(new Bet(chips: 1, score: 2));
+			player.Bet(new Bet(chips: 1, score: 3));
+
+			Assert.AreEqual(3, player.CurrentBet.Bets.Intersect(new[] { new Bet(chips: 1, score: 1),
+																   new Bet(chips: 1, score: 2),
+																   new Bet(chips: 1, score: 3) }).Count());
+		}
+
+		[Test, Ignore]
+		public void Win_HasBetOneChipAndThreeChipsOnLuckyScoreAndTwoChipsOnUnluckyScore_IncreasesChipsBy24()
+		{
+			var player = new Player();
+			player.BuyChips(10);
+			player.Bet(new Bet(chips: 1, score: 1));
+			player.Bet(new Bet(chips: 3, score: 1));
+			player.Bet(new Bet(chips: 2, score: 3));
+
+			var chipsBeforeWin = player.Chips;
+
+			player.Win(score: 1);
+
+			Assert.AreEqual((chipsBeforeWin + 24), player.Chips);
 		}
 	}
 }

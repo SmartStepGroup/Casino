@@ -1,14 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Domain
 {
 	public class Player
 	{
+		public Player()
+		{
+			CurrentBet = new BetCombination();
+		}
+
 		public int Chips { get; private set; }
 
 		public bool IsInGame { get; private set; }
 
-		public Bet CurrentBet { get; private set; }
+		public BetCombination CurrentBet { get; private set; }
 
 		public void Joins(RollDiceGame game)
 		{
@@ -40,7 +46,22 @@ namespace Domain
 			{
 				throw new InvalidOperationException();
 			}
-			CurrentBet = bet;
+			CurrentBet.Bets.Add(bet);
 		}
+
+		public void Win(int score)
+		{
+			//Chips += CurrentBet.GetPrize(score);
+		}
+	}
+
+	public class BetCombination
+{
+		public BetCombination()
+		{
+			Bets = new List<Bet>();
+		}
+
+		public List<Bet> Bets { get; set; }
 	}
 }
