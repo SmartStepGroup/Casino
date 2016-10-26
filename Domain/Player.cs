@@ -24,6 +24,11 @@ namespace Domain
 
       public void Leave()
       {
+         if (!IsInGame)
+         {
+            throw new InvalidOperationException();
+         }
+
          IsInGame = false;
       }
    }
