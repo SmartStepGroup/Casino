@@ -80,11 +80,21 @@ namespace Tests
             var player = new Mock<Player>();
             var game = new Game();
             player.Object.Join(game);
-            player.Object.Bet(player.Object.Cash, new Score(1));
+            player.Object.Bet(player.Object.Cash, new Score(6));
 
             game.Play();
 
             player.Verify(x => x.Win(), Times.Once);
+        }
+
+        [Test]
+        public void BetMoreCash_ThowException()
+        {
+            var player =new Player();
+            player.BuyChips(new Chips(1));
+
+
+            Assert.Catch<Exception>(()=> player.Bet(new Chips(2), new Score(6)));
         }
     }
 

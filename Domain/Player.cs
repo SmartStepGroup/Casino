@@ -41,7 +41,11 @@ namespace Domain
 
         public void Bet(Chips chips, Score score)
         {
-            
+            if (Cash.GetCount() < chips.GetCount())
+            {
+                throw new InvalidOperationException();
+            }
+
         }
 
         public virtual void Win()
