@@ -8,5 +8,15 @@ namespace Domain.TDD
 {
     public class Game
     {
+        private int _count;
+        public void NotifyNewPLayer(Player player)
+        {
+            if (_count == 6)
+            {
+                throw new InvalidOperationException();
+            }
+
+            _count++;
+        }
     }
 }

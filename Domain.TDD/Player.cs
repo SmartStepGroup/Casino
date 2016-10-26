@@ -8,6 +8,8 @@ namespace Domain.TDD
 {
     public class Player
     {
+        private Game _game;
+
         public void Join(Game game)
         {
             if (IsInGame)
@@ -15,22 +17,22 @@ namespace Domain.TDD
                 throw new InvalidOperationException();
             }
 
-            IsInGame = true;
+            _game = game;
+            _game.NotifyNewPLayer(this);
         }
 
-        public bool IsInGame { get; private set; }
+        public bool IsInGame { get { return _game != null; } }
 
         public void Leave()
         {
             if (IsInGame)
             {
-                IsInGame = false;
+                _game = null;
             }
             else
             {
                 throw new InvalidOperationException();
             }
-
         }
     }
 }

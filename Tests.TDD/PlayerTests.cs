@@ -33,7 +33,7 @@ namespace Tests.TDD
         }
 
         [Test, TestMethod]
-        public void Leave_PlayerNotInGame_ThrowsInvalidOperationException()
+        public void Leave_PlayerIsNotInGame_ThrowsInvalidOperationException()
         {
             Player player = new Player();
 
@@ -41,7 +41,7 @@ namespace Tests.TDD
         }
 
         [Test, TestMethod]
-        public void Join_PlayerInGame_ThrowsInvalidOperationException()
+        public void Join_PlayerIsInGame_ThrowsInvalidOperationException()
         {
             Player player = new Player();
             Game game = new Game();
@@ -50,6 +50,18 @@ namespace Tests.TDD
             Assert.Catch<InvalidOperationException>(() => player.Join(game));
         }
 
+        [Test, TestMethod]
+        public void JoinAnother_6PlayersInGame_ThrowsInvaliOperationException()
+        {
+            Game game = new Game();
+            new Player().Join(game);
+            new Player().Join(game);
+            new Player().Join(game);
+            new Player().Join(game);
+            new Player().Join(game);
+            new Player().Join(game);
 
+            Assert.Catch<InvalidOperationException>(() => new Player().Join(game));
+        }
     }
 }
