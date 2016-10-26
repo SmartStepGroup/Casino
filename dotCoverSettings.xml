@@ -2,7 +2,7 @@
 <AnalyseParams>
     <Executable>C:\Program Files (x86)\NUnit 2.6.4\bin\nunit-console.exe</Executable>
     <WorkingDir>.</WorkingDir>
-    <Arguments>Tests\bin\Release\Tests.TDD.dll</Arguments>
+    <Arguments>Tests.TDD\bin\Release\Tests.TDD.dll</Arguments>
     <Output>.\.out\dotCover.html</Output>
     <Filters>
         <IncludeFilters>
