@@ -8,6 +8,8 @@ namespace Domain
 
 		public bool IsInGame { get; private set; }
 
+		public Bet CurrentBet { get; private set; }
+
 		public void Joins(RollDiceGame game)
 		{
 			if (IsInGame || (game.PlayerCount == 6))
@@ -30,6 +32,15 @@ namespace Domain
 		public void BuyChips(int chips)
 		{
 			Chips += chips;
+		}
+
+		public void Bet(Bet bet)
+		{
+			if (bet.Chips > Chips)
+			{
+				throw new InvalidOperationException();
+			}
+			CurrentBet = bet;
 		}
 	}
 }

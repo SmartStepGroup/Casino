@@ -81,5 +81,33 @@ namespace Tests
 
 			Assert.AreEqual(x, player.Chips);
 		}
+
+		[Test]
+		public void ByDefault_HasNoBet()
+		{
+			var player = new Player();
+
+			Assert.IsNull(player.CurrentBet);
+		}
+
+		[Test]
+		public void BetXOnY_SetsTheCorrespondingBet([Range(1, 100, 3)]int x, [Range(1, 6, 1)]int y)
+		{
+			var player = new Player();
+			player.BuyChips(x);
+
+			player.Bet(new Bet(chips: x, score: y));
+
+			Assert.AreEqual(new Bet(chips: x, score: y), player.CurrentBet);
+		}
+
+		[Test]
+		public void BetX_BoughtY_ThrowsInvalidOperationException([Range(1, 49, 3)]int x, [Range(50, 100, 7)]int y)
+		{
+			var player = new Player();
+			player.BuyChips(x);
+
+			Assert.Catch<InvalidOperationException>(() => player.Bet(new Bet(chips: y, score: 1)));
+		}
 	}
 }
