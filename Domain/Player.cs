@@ -1,4 +1,6 @@
-﻿namespace Domain
+﻿using System;
+
+namespace Domain
 {
    public class Player
    {
@@ -6,6 +8,11 @@
 
       public void Join(Game game)
       {
+         if (IsInGame)
+         {
+            throw new InvalidOperationException();
+         }
+
          if (game.CountPlayers >= 6)
          {
             return;
