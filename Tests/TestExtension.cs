@@ -8,10 +8,5 @@ namespace Tests
       {
          return new Chip(count);
       }
-
-      public static Score On(this int number)
-      {
-         return new Score(number);
-      }
    }
 }

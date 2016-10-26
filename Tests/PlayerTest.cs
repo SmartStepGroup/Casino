@@ -72,9 +72,9 @@ namespace Tests
          player.Join(new Game());
          player.BuyChips(100.Chips());
 
-         player.MakeBet(1.Chips(), on(2));
+         player.MakeBet(1.Chips(), On(2));
 
-         Assert.AreEqual(1, player.GetBet(on(2)).Chips.Count);
+         Assert.AreEqual(1, player.GetBet(On(2)).Chips.Count);
       }
 
       [Test]
@@ -89,7 +89,7 @@ namespace Tests
          player.Join(new Game());
          player.BuyChips(chipsNumberPlayerHas.Chips());
 
-         Assert.Catch<InvalidOperationException>(() => player.MakeBet(chipsNumberPlayerBets.Chips(), It.IsAny<int>().On()));
+         Assert.Catch<InvalidOperationException>(() => player.MakeBet(chipsNumberPlayerBets.Chips(), On(1)));
       }
 
       [Test]
@@ -102,9 +102,9 @@ namespace Tests
          player.Join(new Game());
          player.BuyChips(chipsNumberPlayerHas.Chips());
 
-         player.MakeBet(chipsNumberPlayerBets.Chips(), on(1));
+         player.MakeBet(chipsNumberPlayerBets.Chips(), On(1));
 
-         Assert.AreEqual(chipsNumberPlayerBets, player.GetBet(on(1)).Chips.Count);
+         Assert.AreEqual(chipsNumberPlayerBets, player.GetBet(On(1)).Chips.Count);
       }
 
       [Test]
@@ -114,9 +114,9 @@ namespace Tests
          player.Join(new Game());
          player.BuyChips(100.Chips());
 
-         player.MakeBet(5.Chips(), on(2));
+         player.MakeBet(5.Chips(), On(2));
 
-         Assert.AreEqual(2, player.GetBet(on(2)).Score.Number);
+         Assert.AreEqual(2, player.GetBet(On(2)).Score.Number);
       }
 
       [Test]
@@ -125,15 +125,15 @@ namespace Tests
          var player = new Player();
          player.Join(new Game());
          player.BuyChips(100.Chips());
-         player.MakeBet(5.Chips(), on(2));
+         player.MakeBet(5.Chips(), On(2));
 
-         player.MakeBet(10.Chips(), on(3));
+         player.MakeBet(10.Chips(), On(3));
 
-         Assert.AreEqual(5, player.GetBet(on(2)).Chips.Count);
-         Assert.AreEqual(10, player.GetBet(on(3)).Chips.Count);
+         Assert.AreEqual(5, player.GetBet(On(2)).Chips.Count);
+         Assert.AreEqual(10, player.GetBet(On(3)).Chips.Count);
       }
 
-      private static Score on(int number)
+      private static Score On(int number)
       {
          return new Score(number);
       }
