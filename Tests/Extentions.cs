@@ -6,5 +6,10 @@
       {
          return value;
       }
+
+      public static int score(this int value)
+      {
+         return value;
+      }
    }
 }

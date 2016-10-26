@@ -100,9 +100,30 @@ namespace Tests
          var player = new Player();
          player.BuyChips(1.chips());
 
-         player.Bet(player.Chips, score: 2);
+         player.Bet(player.Chips, 2.score());
 
          Assert.True(player.HasAnyBet());
+      }
+
+      [Test]
+      public void Player_CantBetMoreThanHave()
+      {
+         var player = new Player();
+         player.BuyChips(1.chips());
+
+         Assert.Catch<InvalidOperationException>(() => player.Bet(2.chips(), 2.score()));
+      }
+
+      [Test]
+      public void Player_CanBetOnTwoScores()
+      {
+         var player = new Player();
+         player.BuyChips(5.chips());
+
+         player.Bet(1.chips(), 2.score());
+         player.Bet(3.chips(), 5.score());
+
+         Assert.AreEqual(5.chips() - (1.chips() + 3.chips()), player.Chips);
       }
    }
 }

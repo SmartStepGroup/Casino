@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Domain
 {
@@ -47,7 +48,17 @@ namespace Domain
 
       public void Bet(int playerChips, int score)
       {
-         
+         if (playerChips > Chips)
+         {
+            throw new InvalidOperationException();
+         }
+
+         Chips -= playerChips;
+         _availableBets.Add(new BetsWithChips()
+         {
+            Chips = playerChips,
+            Score = score
+         });
       }
 
       public int GetBetAmountOnScore(int i)
@@ -57,7 +68,16 @@ namespace Domain
 
       public bool HasAnyBet()
       {
-         return true;
+         return _availableBets.Count > 0;
+      }
+
+      private readonly List<BetsWithChips> _availableBets = new List<BetsWithChips>();
+
+      private struct BetsWithChips
+      {
+         public int Chips;
+
+         public int Score;
       }
    }
 }
