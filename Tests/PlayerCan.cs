@@ -62,6 +62,18 @@ namespace Tests
 
             Assert.Catch<InvalidOperationException>(() => { player.Join(game); });
         }
+
+        [Test]
+        public void InGameOnePlayer_NullPlayers_One()
+        {
+            var player = new Player();
+            var game = new RollDiceGame();
+
+            player.Join(game);
+
+            const int onePlayer = 1;
+            Assert.AreEqual(onePlayer, game.PlayerCount);
+        }
     }
 }
 
