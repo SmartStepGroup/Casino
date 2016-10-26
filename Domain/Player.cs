@@ -8,6 +8,8 @@ namespace Domain
 
       public int CountChips { get; private set; }
 
+      public Bet Bet { get; set; }
+
       public void BuyChips(int chipsNumber)
       {
          CountChips += chipsNumber;
@@ -37,6 +39,11 @@ namespace Domain
          }
 
          IsInGame = false;
+      }
+
+      public void MakeBet(uint chips)
+      {
+         Bet = new Bet(chips);
       }
    }
 }

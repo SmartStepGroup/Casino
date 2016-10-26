@@ -63,5 +63,18 @@ namespace Tests
 
          Assert.AreEqual(chipsNumber, player.CountChips);
       }
+
+      [Test]
+      public void MakeBet_PlayerInGameWithChips_CanMakeBet()
+      {
+         var player = new Player();
+         player.Join(new Game());
+
+         player.MakeBet(It.IsAny<uint>());
+
+         Assert.AreEqual(It.IsAny<uint>(), player.Bet.Chips);
+      }
    }
+
+   
 }
