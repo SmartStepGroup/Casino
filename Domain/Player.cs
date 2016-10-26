@@ -8,7 +8,7 @@ namespace Domain
 
 		public void Joins(RollDiceGame game)
 		{
-			if (IsInGame)
+			if (IsInGame || (game.PlayerCount == 6))
 			{
 				throw new InvalidOperationException();
 			}

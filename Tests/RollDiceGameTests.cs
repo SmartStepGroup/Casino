@@ -25,6 +25,22 @@ namespace Tests
 			Assert.AreEqual(x, game.PlayerCount);
 		}
 
+		[Test]
+		public void After7PlayersTriedToJoin_PlayersCountIs6()
+		{
+			var game = new RollDiceGame();
+
+			try
+			{
+				joinNewPlayers(game, playerscount: 7);
+			}
+			catch
+			{
+			}
+
+			Assert.AreEqual(6, game.PlayerCount);
+		}
+
 		private void joinNewPlayers(RollDiceGame game, int playerscount)
 		{
 			for (int i = 0; i < playerscount; i++)
