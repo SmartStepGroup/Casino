@@ -5,6 +5,7 @@ namespace Domain
     public class Player
     {
         public bool IsInGame { get; set; }
+        public int Chips => 1;
 
         public void Join(RollDiceGame game)
         {
@@ -23,6 +24,10 @@ namespace Domain
                 throw new InvalidOperationException();
             }
             IsInGame = false;
+        }
+
+        public void BuyChips(int i)
+        {
         }
     }
 }
