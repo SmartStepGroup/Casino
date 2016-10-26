@@ -4,6 +4,7 @@ namespace Domain
 {
     public class RollDiceGame
     {
+        public Player Player { get; set; }
         private const int _maxPlayers = 6;
 
         private int _playerCount;
@@ -22,6 +23,11 @@ namespace Domain
                 }
                 _playerCount = value;
             }
+        }
+
+        public void Play()
+        {
+            Player.Chips += Player.CurrentBet.Chips * 6;
         }
     }
 }

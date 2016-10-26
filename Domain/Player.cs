@@ -14,6 +14,7 @@ namespace Domain
             {
                 throw new InvalidOperationException();
             }
+            game.Player = this;
             game.PlayerCount++;
             IsInGame = true;
         }
@@ -34,6 +35,7 @@ namespace Domain
 
         public void Bet(int chips, int score)
         {
+            Chips -= chips;
             CurrentBet = new Bet();
         }
     }

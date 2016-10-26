@@ -94,6 +94,20 @@ namespace Tests
 
             Assert.AreEqual(1, player.CurrentBet.Score);
         }
+
+        [Test]
+        public void PlayerBets_PlayerWinsSixTimesBet()
+        {
+            var player = new Player();
+            var game = new RollDiceGame();
+            player.Join(game);
+            player.BuyChips(1);
+            player.Bet(1, 1);
+
+            game.Play();
+
+            Assert.AreEqual(1*6, player.Chips);
+        }
     }
 }
 
