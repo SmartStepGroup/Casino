@@ -20,6 +20,7 @@ namespace Domain
          }
 
          if (_game != null) throw new InvalidOperationException();
+         game.OnPlayerJoin(this);
 
          _game = game;
       }
