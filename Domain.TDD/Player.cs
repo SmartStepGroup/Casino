@@ -1,56 +1,60 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.TDD
 {
-    public class Player
-    {
-        private Game _game;
+   public class Player
+   {
+      private Game _game;
+      private readonly List<Bet> _currentBets;
 
-        public void Join(Game game)
-        {
-            if (IsInGame)
-            {
-                throw new InvalidOperationException();
-            }
+      public Player()
+      {
+         _currentBets = new List<Bet>();
+      }
 
-            _game = game;
-            _game.NotifyNewPlayer(this);
-        }
+      public bool IsInGame
+      {
+         get { return _game != null; }
+      }
 
-        public bool IsInGame { get { return _game != null; } }
-        public Chips Chips { get; private set; }
-        public Bet CurrentBet { get; set; }
+      public Chips Chips { get; private set; }
 
-        public void Leave()
-        {
-            if (IsInGame)
-            {
-                _game = null;
-            }
-            else
-            {
-                throw new InvalidOperationException();
-            }
-        }
+      public IReadOnlyList<Bet> CurrentBets
+      {
+         get { return _currentBets; }
+      }
 
-        public void BuyChips(Casino casino, Chips chips)
-        {
-            Chips += chips;
-        }
+      public void Join(Game game)
+      {
+         if (IsInGame)
+            throw new InvalidOperationException();
 
-       public void Bet(Chips chips, Score score)
-       {
-          if (chips > Chips)
-          {
-             throw new InvalidOperationException();
-          }
+         _game = game;
+         _game.NotifyNewPlayer(this);
+      }
 
-          CurrentBet = new Bet(chips, score);
-       }
-    }
+      public void Leave()
+      {
+         if (IsInGame)
+            _game = null;
+         else
+            throw new InvalidOperationException();
+      }
+
+      public void BuyChips(Casino casino, Chips chips)
+      {
+         Chips += chips;
+      }
+
+      public void Bet(Chips chips, Score score)
+      {
+         if (chips > Chips)
+            throw new InvalidOperationException();
+
+         Bet bet = new Bet(chips, score);
+
+         _currentBets.Add(bet);
+      }
+   }
 }
-

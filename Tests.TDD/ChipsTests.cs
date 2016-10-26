@@ -22,6 +22,16 @@ namespace Tests.TDD
 
       [Test]
       [TestMethod]
+      public void TwoChipsGreaterOneChip()
+      {
+         Chips one = (Chips)1;
+         Chips two = (Chips)2;
+
+         Assert.IsTrue(two > one);
+      }
+
+      [Test]
+      [TestMethod]
       public void CreateInvalidChips()
       {
          Assert.Catch<ArgumentOutOfRangeException>(delegate

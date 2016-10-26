@@ -20,9 +20,9 @@ namespace Tests.TDD
 
          player.Bet((Chips) 1, (Score) 2);
 
-         Assert.IsNotNull(player.CurrentBet);
-         Assert.AreEqual((Chips) 1, player.CurrentBet.Chips);
-         Assert.AreEqual((Score) 2, player.CurrentBet.Score);
+         Assert.AreEqual(1, player.CurrentBets.Count);
+         Assert.AreEqual((Chips) 1, player.CurrentBets[0].Chips);
+         Assert.AreEqual((Score) 2, player.CurrentBets[0].Score);
       }
 
       [Test]
@@ -73,7 +73,7 @@ namespace Tests.TDD
 
       [Test]
       [TestMethod]
-      public void JoinAnother_6PlayersInGame_ThrowsInvaliOperationException()
+      public void JoinAnother_6PlayersInGame_ThrowsInvalidOperationException()
       {
          var game = new Game();
          new Player().Join(game);
@@ -106,6 +106,24 @@ namespace Tests.TDD
          var player = new Player();
 
          Assert.Catch<InvalidOperationException>(() => player.Leave());
+      }
+
+      [Test]
+      [TestMethod]
+      public void BetTwoBet_PlayerWithChips_PLayerHasTwoBets()
+      {
+         Player player = new Player();
+         Casino casino = new Casino();
+         player.BuyChips(casino, (Chips)3);
+
+         player.Bet((Chips) 1, (Score) 1);
+         player.Bet((Chips) 2, (Score) 2);
+
+         Assert.AreEqual(2, player.CurrentBets.Count);
+         Assert.AreEqual((Chips)1, player.CurrentBets[0].Chips);
+         Assert.AreEqual((Score)1, player.CurrentBets[0].Score);
+         Assert.AreEqual((Chips)2, player.CurrentBets[1].Chips);
+         Assert.AreEqual((Score)2, player.CurrentBets[1].Score);
       }
    }
 }
