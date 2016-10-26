@@ -73,9 +73,9 @@ namespace Tests
       {
          var player = new Player();
 
-         player.BuyChips(10);
+         player.BuyChips(10.chips());
 
-         Assert.AreEqual(10, player.Chips);
+         Assert.AreEqual(10.chips(), player.Chips);
       }
 
       [Test]
@@ -83,7 +83,7 @@ namespace Tests
       {
          var player = new Player();
 
-         Assert.Catch<ArgumentException>(() => player.BuyChips(-20));
+         Assert.Catch<ArgumentException>(() => player.BuyChips((-20).chips()));
       }
 
       [Test]
@@ -91,7 +91,7 @@ namespace Tests
       {
          var player = new Player();
 
-         Assert.Catch<ArgumentException>(() => player.BuyChips(0));
+         Assert.Catch<ArgumentException>(() => player.BuyChips(0.chips()));
       }
 
       [Test]

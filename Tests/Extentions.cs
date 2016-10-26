@@ -1,10 +1,12 @@
-﻿namespace Tests
+﻿using Domain;
+
+namespace Tests
 {
    public static class Extentions
    {
-      public static int chips(this int value)
+      public static Chip chips(this int value)
       {
-         return value;
+         return new Chip(value);
       }
 
       public static int score(this int value)

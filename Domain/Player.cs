@@ -13,7 +13,12 @@ namespace Domain
          }
       }
 
-      public int Chips { get; private set; }
+      public Player()
+      {
+         Chips = Chip.Zero;
+      }
+
+      public Chip Chips { get; private set; }
 
       public void Join(Game game)
       {
@@ -36,24 +41,24 @@ namespace Domain
          _game = null;
       }
 
-      public void BuyChips(int chips)
+      public void BuyChips(Chip chips)
       {
-         if (chips <= 0)
+         if (chips <= Chip.Zero)
          {
             throw new ArgumentException();
          }
 
-         Chips += chips;
+         Chips = Chips + chips;
       }
 
-      public void Bet(int playerChips, int score)
+      public void Bet(Chip playerChips, int score)
       {
          if (playerChips > Chips)
          {
             throw new InvalidOperationException();
          }
 
-         Chips -= playerChips;
+         Chips = Chips - playerChips;
          _availableBets.Add(new BetsWithChips()
          {
             Chips = playerChips,
@@ -75,7 +80,7 @@ namespace Domain
 
       private struct BetsWithChips
       {
-         public int Chips;
+         public Chip Chips;
 
          public int Score;
       }
