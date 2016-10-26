@@ -8,6 +8,10 @@ namespace Domain
 
         public void Join(RollDiceGame game)
         {
+            if (IsInGame)
+            {
+                throw new InvalidOperationException();
+            }
             IsInGame = true;
         }
 

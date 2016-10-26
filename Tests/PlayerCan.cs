@@ -52,6 +52,16 @@ namespace Tests
 
             Assert.Catch<InvalidOperationException>(() => { player.LeaveGame(); });
         }
+
+        [Test]
+        public void JoinGameTwice_InGame_Exception()
+        {
+            var player = new Player();
+            var game = new RollDiceGame();
+            player.Join(game);
+
+            Assert.Catch<InvalidOperationException>(() => { player.Join(game); });
+        }
     }
 }
 
