@@ -31,14 +31,14 @@ namespace Tests
       }
 
       [Test]
-      public void Player_CantLeaveGame_IfNotInGame()
+      public void Player_CantLeaveGame_IfNotInGame_InvalidOperationException()
       {
          var player = new Player();
          Assert.Catch<InvalidOperationException>(() => player.Leave());
       }
 
       [Test]
-      public void Player_CantLeaveGameTwice()
+      public void Player_CantLeaveGameTwice_InvalidOperationException()
       {
          var player = new Player();
          var game = new Game();
@@ -50,7 +50,7 @@ namespace Tests
       }
 
       [Test]
-      public void Player_CantJoinGameTwice()
+      public void Player_CantJoinGameTwice_InvalidOperationException()
       {
          var player = new Player();
          var game = new Game();
@@ -61,11 +61,48 @@ namespace Tests
       }
 
       [Test]
-      public void Player_CantJoinNullGame()
+      public void Player_CantJoinNullGame_ArgumentNullException()
       {
          var player = new Player();
 
          Assert.Catch<ArgumentNullException>(() => player.Join(null));
+      }
+
+      [Test]
+      public void Player_CanBy10Chips()
+      {
+         var player = new Player();
+
+         player.BuyChips(10);
+
+         Assert.AreEqual(10, player.Chips);
+      }
+
+      [Test]
+      public void Player_CantBuyNegativeChips()
+      {
+         var player = new Player();
+
+         Assert.Catch<ArgumentException>(() => player.BuyChips(-20));
+      }
+
+      [Test]
+      public void Player_CantBuyZeroChips()
+      {
+         var player = new Player();
+
+         Assert.Catch<ArgumentException>(() => player.BuyChips(0));
+      }
+
+      [Test]
+      public void Player_CanBet()
+      {
+         var player = new Player();
+         player.BuyChips(1.chips());
+
+         player.Bet(player.Chips, score: 2);
+
+         Assert.True(player.HasAnyBet());
       }
    }
 }
