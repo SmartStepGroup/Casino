@@ -67,10 +67,11 @@ namespace Tests
         public void Buy1Chip_Has1Chip()
         {
             var player = new Player();
+            var one_chip = new Chips(1);
 
-            player.BuyChips(1);
+            player.BuyChips(one_chip);
 
-            Assert.AreEqual(1, player.Chips);
+            Assert.AreEqual(one_chip, player.Cash);
         }
 
         [Test]
@@ -79,7 +80,7 @@ namespace Tests
             var player = new Mock<Player>();
             var game = new Game();
             player.Object.Join(game);
-
+          
             game.Play();
 
             player.Verify(x => x.Win(), Times.Once);

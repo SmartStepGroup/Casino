@@ -1,6 +1,8 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics.PerformanceData;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +23,7 @@ namespace Domain
         }
 
         public bool InGame { get; set; }
-        public uint Chips { get; private set; }
+        public Chips Cash { get; private set; } = new Chips(0);
         public void GoOutFromGame()
         {
             if (!InGame)
@@ -31,9 +33,9 @@ namespace Domain
             InGame = false;
         }
 
-        public void BuyChips(uint chips)
+        public void BuyChips(Chips chips)
         {
-            Chips += chips;
+            Cash.Add(chips);
         }
 
         public virtual void Win()
@@ -41,4 +43,6 @@ namespace Domain
             
         }
     }
+
+  
 }
