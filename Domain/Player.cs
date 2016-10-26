@@ -41,8 +41,13 @@ namespace Domain
          IsInGame = false;
       }
 
-      public void MakeBet(uint chips)
+      public void MakeBet(int chips)
       {
+         if (this.CountChips < chips)
+         {
+            throw new InvalidOperationException();
+         }
+
          Bet = new Bet(chips);
       }
    }

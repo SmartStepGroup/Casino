@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Threading;
 using Domain;
 using Moq;
@@ -70,9 +71,21 @@ namespace Tests
          var player = new Player();
          player.Join(new Game());
 
-         player.MakeBet(It.IsAny<uint>());
+         player.MakeBet(It.IsAny<int>());
 
-         Assert.AreEqual(It.IsAny<uint>(), player.Bet.Chips);
+         Assert.AreEqual(It.IsAny<int>(), player.Bet.Chips);
+      }
+
+      [Test]
+      [TestCase(10, 11)]
+      public void MakeBetChipsMoreThenPlayerHas_PlayerInGameWithChips_ThrowInvalidOperationException(int chipsNumberPlayerHas, int chipsNumberPlayerBets)
+      {
+         var player = new Player();
+         player.Join(new Game());
+         player.BuyChips(chipsNumberPlayerHas);
+
+
+         Assert.Catch<InvalidOperationException>(() => player.MakeBet(chipsNumberPlayerBets));
       }
    }
 
