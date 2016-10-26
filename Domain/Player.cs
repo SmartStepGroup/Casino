@@ -15,5 +15,10 @@ namespace Domain
         }
 
         public bool InGame { get; set; }
+
+        public void GoOutFromGame()
+        {
+            InGame = false;
+        }
     }
 }

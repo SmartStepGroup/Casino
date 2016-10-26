@@ -27,5 +27,17 @@ namespace Tests
             Assert.IsFalse(player.InGame);
         }
 
+
+        [Test]
+        public void GoOut_IsNotInGame()
+        {
+            var player = new Player();
+
+            player.GoOutFromGame();
+
+            Assert.IsFalse(player.InGame);
+        }
+        
+
     }
 }
