@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Domain;
 using NUnit.Framework;
 
@@ -70,7 +71,7 @@ namespace Tests
 
             player.BuyChips(1);
 
-            Assert.AreEqual(1, player.Chips);
+            Assert.AreEqual(1, player.CurrentChips);
         }
 
         [Test]
@@ -81,7 +82,7 @@ namespace Tests
 
             player.Bet(1, 1);
 
-            Assert.AreEqual(1, player.CurrentBet.Chips);
+            Assert.AreEqual(1, player.Bets.Last().Chips);
         }
 
         [Test]
@@ -92,7 +93,7 @@ namespace Tests
 
             player.Bet(1, 1);
 
-            Assert.AreEqual(1, player.CurrentBet.Score);
+            Assert.AreNotEqual(-1, player.Bets.FindIndex(x => x.Score == 1));
         }
 
         [Test]
@@ -106,7 +107,7 @@ namespace Tests
 
             game.Play();
 
-            Assert.AreEqual(1*6, player.Chips);
+            Assert.AreEqual(1*6, player.CurrentChips);
         }
 
         [Test]
@@ -116,6 +117,27 @@ namespace Tests
             player.BuyChips(1);
 
             Assert.Catch<InvalidOperationException>(() => { player.Bet(2, 1); });
+        }
+
+        [Test]
+        public void PlayerCanBetTwice()
+        {
+            var player = new Player();
+            player.BuyChips(2);
+
+            player.Bet(1, 1);
+            player.Bet(1, 2);
+
+            Assert.AreEqual(2, player.Bets.Count);
+        }
+
+        [Test]
+        public void PlayerCannotBetForScoreSeven()
+        {
+            var player = new Player();
+            player.BuyChips(2);
+
+            Assert.Catch<InvalidOperationException>(() => { player.Bet(1, 7); });
         }
     }
 }
@@ -127,6 +149,7 @@ namespace Tests
 
 //Я, как игрок, могу купить фишки у казино, чтобы делать ставки
 //Я, как игрок, могу сделать ставку в игре в кости, чтобы выиграть
+// Я, как игрок, могу поставить только на числа 1 - 6
 //Я, как игрок, не могу поставить фишек больше, чем я купил
 //Я, как игрок, могу сделать несколько ставок на разные числа, чтобы повысить вероятность выигрыша
 

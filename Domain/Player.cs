@@ -1,12 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
+using Castle.Components.DictionaryAdapter;
 
 namespace Domain
 {
     public class Player
     {
+        private const int _maxBetScore = 6;
+
         public bool IsInGame { get; set; }
-        public int Chips { get; set; }
-        public Bet CurrentBet { get; set; }
+        public int CurrentChips { get; set; }
+        public List<Bet> Bets { get; set; }
+
+        public Player()
+        {
+            Bets = new List<Bet>();
+        }
 
         public void Join(RollDiceGame game)
         {
@@ -30,23 +39,31 @@ namespace Domain
 
         public void BuyChips(int chips)
         {
-            Chips += chips;
+            CurrentChips += chips;
         }
 
-        public void Bet(int chips, int score)
+        public void Bet(int betChips, int score)
         {
-            if (Chips < chips)
+            if (CurrentChips < betChips
+                || score > _maxBetScore)
             {
                 throw new InvalidOperationException();
             }
-            Chips -= chips;
-            CurrentBet = new Bet();
+
+            CurrentChips -= betChips;
+            Bets.Add(new Bet(betChips, score));
         }
     }
 
     public class Bet
     {
-        public int Chips => 1;
-        public int Score => 1;
+        public int Chips { get; set; }
+        public int Score { get; set; }
+
+        public Bet(int chips, int score)
+        {
+            Chips = chips;
+            Score = score;
+        }
     }
 }

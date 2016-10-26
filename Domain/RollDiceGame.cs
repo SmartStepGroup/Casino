@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Domain
 {
@@ -27,7 +28,7 @@ namespace Domain
 
         public void Play()
         {
-            Player.Chips += Player.CurrentBet.Chips * 6;
+            Player.CurrentChips += Player.Bets.Last().Chips * 6;
         }
     }
 }
