@@ -18,6 +18,14 @@ namespace Tests
                 
             Assert.IsTrue(player.InGame);
         }
-    }
 
+        [Test]
+        public void ByDefault_IsNotInGame()
+        {
+            var player = new Player();
+
+            Assert.IsFalse(player.InGame);
+        }
+
+    }
 }

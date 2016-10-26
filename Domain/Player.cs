@@ -10,9 +10,10 @@ namespace Domain
     {
         public void Join(Game game)
         {
+            InGame = true;
 
         }
 
-        public bool InGame = true;
+        public bool InGame { get; set; }
     }
 }
