@@ -70,10 +70,11 @@ namespace Tests
       {
          var player = new Player();
          player.Join(new Game());
+         player.BuyChips(100.Chips());
 
-         player.MakeBet(It.IsAny<int>().Chips(), It.IsAny<int>().On());
+         player.MakeBet(1.Chips(), on(2));
 
-         Assert.AreEqual(It.IsAny<int>(), player.Bet.Chips.Count);
+         Assert.AreEqual(1, player.GetBet(on(2)).Chips.Count);
       }
 
       [Test]
@@ -101,24 +102,41 @@ namespace Tests
          player.Join(new Game());
          player.BuyChips(chipsNumberPlayerHas.Chips());
 
-         player.MakeBet(chipsNumberPlayerBets.Chips(), It.IsAny<int>().On());
+         player.MakeBet(chipsNumberPlayerBets.Chips(), on(1));
 
-         Assert.AreEqual(chipsNumberPlayerBets, player.Bet.Chips.Count);
+         Assert.AreEqual(chipsNumberPlayerBets, player.GetBet(on(1)).Chips.Count);
       }
 
       [Test]
       public void PlayerCanBetOnScore()
       {
          var player = new Player();
-         var game = new Game();
-         player.Join(game);
+         player.Join(new Game());
          player.BuyChips(100.Chips());
 
-         player.MakeBet(5.Chips(), 2.On());
+         player.MakeBet(5.Chips(), on(2));
 
-         Assert.AreEqual(2, player.Bet.Score.Number);
+         Assert.AreEqual(2, player.GetBet(on(2)).Score.Number);
       }
 
+      [Test]
+      public void PlayerCanBetOnMultipleScores()
+      {
+         var player = new Player();
+         player.Join(new Game());
+         player.BuyChips(100.Chips());
+         player.MakeBet(5.Chips(), on(2));
+
+         player.MakeBet(10.Chips(), on(3));
+
+         Assert.AreEqual(5, player.GetBet(on(2)).Chips.Count);
+         Assert.AreEqual(10, player.GetBet(on(3)).Chips.Count);
+      }
+
+      private static Score on(int number)
+      {
+         return new Score(number);
+      }
    }
 
    

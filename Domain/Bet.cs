@@ -1,4 +1,6 @@
-﻿namespace Domain
+﻿using Microsoft.Win32.SafeHandles;
+
+namespace Domain
 {
    public struct Bet
    {
