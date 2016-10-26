@@ -26,5 +26,10 @@ namespace Domain
 			}
 			IsInGame = false;
 		}
+
+		public void BuyChips(int chips)
+		{
+			Chips += chips;
+		}
 	}
 }

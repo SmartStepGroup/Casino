@@ -71,5 +71,15 @@ namespace Tests
 
 			Assert.AreEqual(0, player.Chips);
 		}
+
+		[Test]
+		public void BuyXChips_SetChipsToX([Values(1, 10, 100)] int x)
+		{
+			var player = new Player();
+
+			player.BuyChips(x);
+
+			Assert.AreEqual(x, player.Chips);
+		}
 	}
 }
