@@ -9,14 +9,15 @@ namespace Domain
 {
     public class Player
     {
-        public void Join(Game game)
+        public bool Join(Game game)
         {
             if (InGame)
             {
                 throw new InvalidOperationException();
             }
-            InGame = true;
 
+            InGame = game.AddPlayer();
+            return InGame;
         }
 
         public bool InGame { get; set; }
